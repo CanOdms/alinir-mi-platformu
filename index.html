@@ -190,6 +190,13 @@
             justify-content: center;
             font-size: 3rem;
             border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .product-content {
@@ -436,6 +443,36 @@
             line-height: 1.5;
         }
 
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5);
+        }
+
+        .scroll-to-top.show {
+            display: flex;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .header-container {
@@ -471,6 +508,14 @@
 
             .header-container {
                 padding: 1rem;
+            }
+
+            .scroll-to-top {
+                width: 45px;
+                height: 45px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+                font-size: 1.2rem;
             }
         }
 
@@ -517,6 +562,7 @@
             <button class="filter-btn active" data-filter="all">Tümü</button>
             <button class="filter-btn" data-filter="telefon">📱 Telefon</button>
             <button class="filter-btn" data-filter="laptop">💻 Laptop</button>
+            <button class="filter-btn" data-filter="konsol">🎮 Konsol</button>
             <button class="filter-btn" data-filter="ev-aleti">🏠 Ev Aletleri</button>
         </div>
     </div>
@@ -524,7 +570,7 @@
     <!-- Main Container -->
     <div class="main-container">
         <div class="results-info">
-            <span id="resultCount">4</span> ürün listeleniyor
+            <span id="resultCount">50</span> ürün listeleniyor
         </div>
 
         <!-- Products Grid -->
@@ -571,85 +617,73 @@
         </div>
     </div>
 
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
+
     <script>
-        // Product Data
+        // Product Data - 50 Popüler Ürün
         const products = [
-            {
-                id: 1,
-                name: "iPhone 11",
-                model: "Apple",
-                category: "telefon",
-                emoji: "📱",
-                riskScore: 3,
-                riskLevel: "safe",
-                chronicIssues: "iPhone 11 genellikle güvenilir bir modeldir. Batarya sağlığı 80% üzerine çıkmalı. Ekran hasarı ve su hasarı en yaygın sorunlardır.",
-                checklist: [
-                    "Batarya sağlığını kontrol et (Settings > Battery > Battery Health)",
-                    "Ekran ve arka cam için çatlak/hasar kontrol et",
-                    "Face ID'nin düzgün çalışıp çalışmadığını test et",
-                    "Kamera lensleri temiz mi kontrol et",
-                    "Ses ve titreşim motorunu test et",
-                    "Orijinal şarj cihazı ile gelip gelmediğini sor",
-                    "Garantisi var mı kontrol et"
-                ]
-            },
-            {
-                id: 2,
-                name: "Dyson V15 Detect",
-                model: "Dyson",
-                category: "ev-aleti",
-                emoji: "🧹",
-                riskScore: 6,
-                riskLevel: "warning",
-                chronicIssues: "Dyson süpürgeler yüksek fiyatlı olduğu için dikkat gerekir. Motor gürültüsü ve batarya kapasitesi kontrol edilmeli. Filtre değişim maliyeti yüksektir.",
-                checklist: [
-                    "Motor gücünü test et (normal ve turbo modu)",
-                    "Batarya çalışma süresini ölç (40 dakika olmalı)",
-                    "Filtre temizliğini kontrol et",
-                    "Emme gücünün azalıp azalmadığını test et",
-                    "Tüm aksesuar ve ataşmanları kontrol et",
-                    "Orijinal batarya olup olmadığını doğrula",
-                    "Servis kaydını sor (garanti aktif mi?)"
-                ]
-            },
-            {
-                id: 3,
-                name: "MacBook Pro 13\"",
-                model: "2019 Intel",
-                category: "laptop",
-                emoji: "💻",
-                riskScore: 8,
-                riskLevel: "danger",
-                chronicIssues: "2019 Intel MacBook Pro'lar klavye sorunları ile bilinir (Butterfly mekanizması). Termal sorunlar ve batarya sağlığı kritik. Orijinal olmayan parça değişimi sorunu yaratabilir.",
-                checklist: [
-                    "Butterfly klavyenin tüm tuşlarını test et",
-                    "Batarya sağlığını kontrol et (System Report > Power)",
-                    "Termal performansı kontrol et (Macs Fan Control kullan)",
-                    "SSD'nin çalışıp çalışmadığını test et",
-                    "Ekran açılıp kapanırken gürültü var mı kontrol et",
-                    "Orijinal Apple servis kaydını sor",
-                    "Garantisi kalmış mı ve AppleCare+ var mı kontrol et"
-                ]
-            },
-            {
-                id: 4,
-                name: "Samsung Galaxy A12",
-                model: "Samsung",
-                category: "telefon",
-                emoji: "📱",
-                riskScore: 4,
-                riskLevel: "safe",
-                chronicIssues: "Galaxy A12 bütçe dostu bir telefondur. Batarya kapasitesi 5000mAh'dir ve iyi dayanır. Yazılım güncellemeleri sınırlı olabilir.",
-                checklist: [
-                    "Batarya kapasitesini kontrol et (Settings > Device Care)",
-                    "Ekran yanması var mı kontrol et",
-                    "Kamera kalitesini test et",
-                    "Şarj hızını ölç",
-                    "Yazılım sürümünü kontrol et",
-                    "Mikrofon ve hoparlörü test et",
-                    "Fiziksel hasarları kontrol et"
-                ]
-            }
+            // TELEFON - iPhone
+            {id:1,name:"iPhone 15 Pro Max",model:"Apple",category:"telefon",emoji:"📱",riskScore:2,riskLevel:"safe",chronicIssues:"iPhone 15 Pro Max yeni model olduğu için çok az sorun biliniyor. Ekran kalitesi mükemmel, kamera sistemi ileri. Batarya sağlığı henüz test edilmemiş.",checklist:["Ekran ve kamera sistemini test et","Batarya kapasitesini kontrol et","USB-C portunun çalışıp çalışmadığını test et","Titanyum çerçevenin hasarını kontrol et","Termal performansı kontrol et","Orijinal aksesuar ve kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:2,name:"iPhone 15",model:"Apple",category:"telefon",emoji:"📱",riskScore:2,riskLevel:"safe",chronicIssues:"iPhone 15 standart model güvenilir bir seçim. A17 Pro çipi güçlü, kamera kalitesi yüksek. Batarya sağlığı önemli kontrol noktası.",checklist:["Ekran yanması var mı kontrol et","Kamera kalitesini test et","Batarya sağlığını kontrol et","USB-C şarj hızını ölç","Ses ve titreşim motorunu test et","Fiziksel hasarları kontrol et","Yazılım sürümünü kontrol et"]},
+            {id:3,name:"iPhone 14 Pro",model:"Apple",category:"telefon",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"iPhone 14 Pro hala güzel bir seçim. Kamera sistemi profesyonel seviye. Batarya sağlığı 80% üzerine çıkmalı. Termal sorunlar nadir.",checklist:["Batarya sağlığını kontrol et","Kamera lensleri temiz mi kontrol et","Ekran yanması var mı test et","Face ID'nin düzgün çalışıp çalışmadığını test et","Titreşim motorunu test et","Orijinal şarj cihazı ile gelip gelmediğini sor","AppleCare+ var mı kontrol et"]},
+            {id:4,name:"iPhone 13",model:"Apple",category:"telefon",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"iPhone 13 popüler ve güvenilir model. Batarya sağlığı 85% üzerine çıkmalı. Ekran kalitesi mükemmel. Kamera sistemi çok iyi.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı kontrol et","Kamera test et","Face ID'yi test et","Ses hoparlörü test et","Orijinal kutusu ve aksesuar var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:5,name:"iPhone 12",model:"Apple",category:"telefon",emoji:"📱",riskScore:4,riskLevel:"safe",chronicIssues:"iPhone 12 hala iyi bir seçim. Batarya kapasitesi 2815 mAh. Ekran kalitesi OLED. Nadir de olsa ısınma sorunları rapor edilmiş.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Termal performansı kontrol et","Ses sistemini test et","Fiziksel hasarları kontrol et","Yazılım güncellemesi alıp almadığını kontrol et"]},
+            {id:6,name:"iPhone 11",model:"Apple",category:"telefon",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"iPhone 11 güvenilir bir model. Batarya sağlığı 80% üzerine çıkmalı. Ekran hasarı ve su hasarı en yaygın sorunlar.",checklist:["Batarya sağlığını kontrol et","Ekran ve arka cam için çatlak kontrol et","Face ID'yi test et","Kamera lensleri temiz mi kontrol et","Ses ve titreşim motorunu test et","Orijinal şarj cihazı ile gelip gelmediğini sor","Garantisi var mı kontrol et"]},
+            {id:7,name:"Samsung Galaxy S24 Ultra",model:"Samsung",category:"telefon",emoji:"📱",riskScore:2,riskLevel:"safe",chronicIssues:"S24 Ultra yeni model, çok az bilinen sorun var. Ekran kalitesi harika. Kamera sistemi profesyonel. Batarya dayanıklı.",checklist:["Ekran yanması var mı kontrol et","Kamera kalitesini test et","Batarya kapasitesini kontrol et","S Pen'in çalışıp çalışmadığını test et","Hoparlörleri test et","Fiziksel hasarları kontrol et","Garantisi kalmış mı sor"]},
+            {id:8,name:"Samsung Galaxy S23",model:"Samsung",category:"telefon",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"S23 güvenilir bir seçim. Ekran kalitesi mükemmel. Kamera sistemi çok iyi. Batarya sağlığı genellikle iyi.",checklist:["Ekran yanması var mı test et","Kamera kalitesini test et","Batarya sağlığını kontrol et","Ses sistemini test et","Titreşim motorunu test et","Orijinal aksesuar var mı kontrol et","Yazılım güncellemesi alıp almadığını kontrol et"]},
+            {id:9,name:"Samsung Galaxy S22",model:"Samsung",category:"telefon",emoji:"📱",riskScore:4,riskLevel:"safe",chronicIssues:"S22 hala iyi bir seçim. Ekran kalitesi harika. Kamera performansı yüksek. Nadir de olsa ısınma sorunları rapor edilmiş.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı kontrol et","Kamera test et","Termal performansı kontrol et","Hoparlörleri test et","Fiziksel hasarları kontrol et","Garantisi kalmış mı sor"]},
+            {id:10,name:"Samsung Galaxy A12",model:"Samsung",category:"telefon",emoji:"📱",riskScore:4,riskLevel:"safe",chronicIssues:"A12 bütçe dostu seçim. Batarya 5000mAh iyi dayanır. Yazılım güncellemeleri sınırlı olabilir. Performans orta seviye.",checklist:["Batarya kapasitesini kontrol et","Ekran yanması var mı kontrol et","Kamera kalitesini test et","Şarj hızını ölç","Yazılım sürümünü kontrol et","Mikrofon ve hoparlörü test et","Fiziksel hasarları kontrol et"]},
+            
+            // TELEFON - Diğer Markalar
+            {id:11,name:"Google Pixel 8 Pro",model:"Google",category:"telefon",emoji:"📱",riskScore:2,riskLevel:"safe",chronicIssues:"Pixel 8 Pro yeni model, kamera AI'sı harika. Yazılım güncellemeleri uzun süre. Batarya performansı iyi.",checklist:["Kamera kalitesini test et","Batarya sağlığını kontrol et","Ekran yanması var mı kontrol et","Ses sistemini test et","Titreşim motorunu test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:12,name:"OnePlus 12",model:"OnePlus",category:"telefon",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"OnePlus 12 hızlı ve güvenilir. Ekran kalitesi mükemmel. Batarya dayanıklı. Yazılım güncellemeleri düzenli.",checklist:["Ekran yanması var mı test et","Batarya sağlığını kontrol et","Kamera kalitesini test et","Şarj hızını ölç","Ses sistemini test et","Fiziksel hasarları kontrol et","Garantisi kalmış mı sor"]},
+            {id:13,name:"Xiaomi 14",model:"Xiaomi",category:"telefon",emoji:"📱",riskScore:4,riskLevel:"safe",chronicIssues:"Xiaomi 14 iyi fiyat-performans. Kamera sistemi Leica işbirliği. Batarya kapasitesi yüksek. Yazılım güncellemeleri iyi.",checklist:["Batarya sağlığını kontrol et","Kamera kalitesini test et","Ekran yanması var mı kontrol et","Şarj hızını ölç","Hoparlörleri test et","Fiziksel hasarları kontrol et","Garantisi kalmış mı sor"]},
+            {id:14,name:"Motorola Edge 50",model:"Motorola",category:"telefon",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"Motorola Edge 50 temiz yazılım, hızlı. Kamera kalitesi iyi. Batarya dayanıklı. Güncellemeler düzenli.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Titreşim motorunu test et","Orijinal aksesuar var mı kontrol et","Yazılım güncellemesi alıp almadığını kontrol et"]},
+            {id:15,name:"Huawei P60 Pro",model:"Huawei",category:"telefon",emoji:"📱",riskScore:5,riskLevel:"warning",chronicIssues:"P60 Pro güçlü kamera. Ancak Google hizmetleri yok. Yazılım güncellemeleri sınırlı. Batarya performansı iyi.",checklist:["Kamera kalitesini test et","Batarya sağlığını kontrol et","Ekran yanması var mı kontrol et","Huawei hizmetlerini test et","Ses sistemini test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+
+            // LAPTOP - Apple
+            {id:16,name:"MacBook Pro 16 M3 Max",model:"Apple",category:"laptop",emoji:"💻",riskScore:2,riskLevel:"safe",chronicIssues:"M3 Max çok güçlü, yeni model. Ekran harika. Batarya ömrü uzun. Termal yönetim mükemmel.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Trackpad'i test et","Orijinal kutusu var mı kontrol et","AppleCare+ var mı kontrol et"]},
+            {id:17,name:"MacBook Pro 14 M3",model:"Apple",category:"laptop",emoji:"💻",riskScore:2,riskLevel:"safe",chronicIssues:"M3 güçlü ve verimli. Ekran Liquid Retina XDR harika. Batarya 17 saat kadar dayanır. Soğutma sistemi sessiz.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Trackpad'i test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:18,name:"MacBook Air M2",model:"Apple",category:"laptop",emoji:"💻",riskScore:3,riskLevel:"safe",chronicIssues:"M2 güvenilir ve hızlı. Ekran kalitesi mükemmel. Batarya 15-18 saat dayanır. Termal sorunlar nadir.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Trackpad'i test et","Orijinal şarj cihazı var mı kontrol et","Yazılım güncellemesi alıp almadığını kontrol et"]},
+            {id:19,name:"MacBook Air M1",model:"Apple",category:"laptop",emoji:"💻",riskScore:3,riskLevel:"safe",chronicIssues:"M1 hala güçlü ve verimli. Batarya ömrü uzun. Ekran kalitesi harika. Yazılım desteği uzun.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Trackpad'i test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:20,name:"MacBook Pro 13 2019 Intel",model:"Apple",category:"laptop",emoji:"💻",riskScore:8,riskLevel:"danger",chronicIssues:"Butterfly klavye sorunları ile bilinir. Termal sorunlar ve batarya sağlığı kritik. Orijinal olmayan parça değişimi sorunu yaratabilir.",checklist:["Butterfly klavyenin tüm tuşlarını test et","Batarya sağlığını kontrol et","Termal performansı kontrol et","SSD'nin çalışıp çalışmadığını test et","Ekran açılıp kapanırken gürültü var mı kontrol et","Orijinal Apple servis kaydını sor","Garantisi kalmış mı ve AppleCare+ var mı kontrol et"]},
+
+            // LAPTOP - Windows
+            {id:21,name:"ASUS ROG Zephyrus G16",model:"ASUS",category:"laptop",emoji:"💻",riskScore:4,riskLevel:"safe",chronicIssues:"Gaming laptop, güçlü ve ağır. Batarya ömrü kısa (3-4 saat). Soğutma fanı gürültülü. Ekran kalitesi harika.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Klavyeyi test et","Soğutma fanının gürültüsünü kontrol et","Garantisi kalmış mı sor"]},
+            {id:22,name:"Dell XPS 15",model:"Dell",category:"laptop",emoji:"💻",riskScore:3,riskLevel:"safe",chronicIssues:"Premium laptop, kaliteli yapı. Batarya ömrü 8-10 saat. Ekran kalitesi mükemmel. Termal yönetim iyi.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Trackpad'i test et","Orijinal şarj cihazı var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:23,name:"Lenovo ThinkPad X1 Carbon",model:"Lenovo",category:"laptop",emoji:"💻",riskScore:3,riskLevel:"safe",chronicIssues:"İş laptopi, dayanıklı ve güvenilir. Batarya ömrü 10-12 saat. Ekran kalitesi iyi. Klavye mükemmel.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Klavyeyi test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:24,name:"HP Pavilion 15",model:"HP",category:"laptop",emoji:"💻",riskScore:4,riskLevel:"safe",chronicIssues:"Bütçe dostu laptop. Batarya ömrü 6-8 saat. Ekran kalitesi orta. Performans günlük işler için yeterli.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Klavyeyi test et","Fiziksel hasarları kontrol et","Garantisi kalmış mı sor"]},
+            {id:25,name:"MSI GE76 Raider",model:"MSI",category:"laptop",emoji:"💻",riskScore:5,riskLevel:"warning",chronicIssues:"Gaming laptop, güçlü ama sıcak. Batarya ömrü çok kısa. Soğutma sistemi gürültülü. Ekran refresh rate yüksek.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Soğutma fanının gürültüsünü kontrol et","Termal performansı kontrol et","Garantisi kalmış mı sor"]},
+
+            // KONSOL
+            {id:26,name:"PlayStation 5",model:"Sony",category:"konsol",emoji:"🎮",riskScore:3,riskLevel:"safe",chronicIssues:"PS5 güvenilir konsol. Disk drive sorunları nadir. Batarya kontrolörü iyi. Isınma sorunları çok nadir.",checklist:["Disk drive'ı test et","Kontrolörleri test et","HDMI portunu test et","USB portlarını test et","Ses sistemini test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:27,name:"PlayStation 4",model:"Sony",category:"konsol",emoji:"🎮",riskScore:4,riskLevel:"safe",chronicIssues:"PS4 hala güvenilir. Disk drive sorunları yaşanabilir. Fan gürültüsü artabilir. Batarya kontrolörü zayıflayabilir.",checklist:["Disk drive'ı test et","Kontrolörleri test et","HDMI portunu test et","USB portlarını test et","Fan gürültüsünü kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:28,name:"Xbox Series X",model:"Microsoft",category:"konsol",emoji:"🎮",riskScore:2,riskLevel:"safe",chronicIssues:"Xbox Series X güçlü ve güvenilir. Isınma sorunları çok nadir. Disk drive güvenilir. Kontrolörler iyi.",checklist:["Disk drive'ı test et","Kontrolörleri test et","HDMI portunu test et","USB portlarını test et","Ses sistemini test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:29,name:"Xbox Series S",model:"Microsoft",category:"konsol",emoji:"🎮",riskScore:2,riskLevel:"safe",chronicIssues:"Series S kompakt ve güvenilir. Isınma sorunları nadir. Disk drive güvenilir. Performans yüksek.",checklist:["Disk drive'ı test et","Kontrolörleri test et","HDMI portunu test et","USB portlarını test et","Ses sistemini test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:30,name:"Nintendo Switch",model:"Nintendo",category:"konsol",emoji:"🎮",riskScore:5,riskLevel:"warning",chronicIssues:"Joy-Con drift sorunu yaygın. Batarya kapasitesi zayıflayabilir. Ekran yanması olabilir. Dock sorunları rapor edilmiş.",checklist:["Joy-Con drift'i test et","Batarya kapasitesini kontrol et","Ekran yanması var mı test et","Dock'u test et","Ses sistemini test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+
+            // EV ALETLERİ
+            {id:31,name:"Dyson V15 Detect",model:"Dyson",category:"ev-aleti",emoji:"🧹",riskScore:6,riskLevel:"warning",chronicIssues:"Dyson pahalı olduğu için dikkat gerekir. Motor gürültüsü ve batarya kapasitesi kontrol edilmeli. Filtre değişim maliyeti yüksek.",checklist:["Motor gücünü test et","Batarya çalışma süresini ölç","Filtre temizliğini kontrol et","Emme gücünün azalıp azalmadığını test et","Tüm aksesuar ve ataşmanları kontrol et","Orijinal batarya olup olmadığını doğrula","Servis kaydını sor"]},
+            {id:32,name:"Dyson V12 Detect",model:"Dyson",category:"ev-aleti",emoji:"🧹",riskScore:5,riskLevel:"warning",chronicIssues:"V12 güçlü ama batarya kapasitesi kontrol edilmeli. Motor gürültüsü normal. Filtre değişim maliyeti yüksek.",checklist:["Motor gücünü test et","Batarya çalışma süresini ölç","Filtre temizliğini kontrol et","Emme gücünü test et","Aksesuar ve ataşmanları kontrol et","Orijinal batarya olup olmadığını doğrula","Garantisi kalmış mı sor"]},
+            {id:33,name:"Xiaomi Robot Vacuum",model:"Xiaomi",category:"ev-aleti",emoji:"🤖",riskScore:4,riskLevel:"safe",chronicIssues:"Robot süpürge güvenilir. Batarya kapasitesi kontrol edilmeli. Sensörler temiz mi kontrol et. Fırça değişim maliyeti düşük.",checklist:["Batarya kapasitesini kontrol et","Sensörleri test et","Fırçaları kontrol et","Harita oluşturma özelliğini test et","Ses seviyesini kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:34,name:"iRobot Roomba j7+",model:"iRobot",category:"ev-aleti",emoji:"🤖",riskScore:3,riskLevel:"safe",chronicIssues:"Roomba kaliteli robot. Batarya ömrü iyi. Sensörler güvenilir. Yazılım güncellemeleri düzenli.",checklist:["Batarya kapasitesini kontrol et","Sensörleri test et","Fırçaları kontrol et","Harita oluşturma özelliğini test et","Ses seviyesini kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:35,name:"LG OLED TV 55 inç",model:"LG",category:"ev-aleti",emoji:"📺",riskScore:5,riskLevel:"warning",chronicIssues:"OLED TV harika görüntü ama ekran yanması riski var. Batarya kontrolörü zayıflayabilir. Yazılım güncellemeleri sınırlı.",checklist:["Ekran yanması var mı test et","Tüm giriş portlarını test et","Ses sistemini test et","Uzaktan kumandayı test et","Yazılım sürümünü kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:36,name:"Samsung QLED TV 65 inç",model:"Samsung",category:"ev-aleti",emoji:"📺",riskScore:4,riskLevel:"safe",chronicIssues:"QLED TV kaliteli. Ekran yanması riski az. Ses sistemi iyi. Yazılım güncellemeleri düzenli.",checklist:["Ekran yanması var mı test et","Tüm giriş portlarını test et","Ses sistemini test et","Uzaktan kumandayı test et","Yazılım sürümünü kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:37,name:"Sony Bravia XR 55\"",model:"Sony",category:"ev-aleti",emoji:"📺",riskScore:3,riskLevel:"safe",chronicIssues:"Sony Bravia kaliteli TV. Ekran yanması riski az. Ses sistemi mükemmel. Yazılım güncellemeleri iyi.",checklist:["Ekran yanması var mı test et","Tüm giriş portlarını test et","Ses sistemini test et","Uzaktan kumandayı test et","Yazılım sürümünü kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:38,name:"Apple Watch Series 9",model:"Apple",category:"ev-aleti",emoji:"⌚",riskScore:2,riskLevel:"safe",chronicIssues:"Series 9 güvenilir akıllı saat. Batarya ömrü 18 saat kadar. Ekran kalitesi harika. Sensörler güvenilir.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Sensörleri test et","Ses sistemini test et","Titreşim motorunu test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:39,name:"Samsung Galaxy Watch 6",model:"Samsung",category:"ev-aleti",emoji:"⌚",riskScore:3,riskLevel:"safe",chronicIssues:"Galaxy Watch 6 güvenilir. Batarya ömrü 2-3 gün. Ekran kalitesi iyi. Yazılım güncellemeleri düzenli.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Sensörleri test et","Ses sistemini test et","Titreşim motorunu test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:40,name:"Nespresso Vertuo",model:"Nespresso",category:"ev-aleti",emoji:"☕",riskScore:3,riskLevel:"safe",chronicIssues:"Kahve makinesi güvenilir. Pompa sorunları nadir. Isıtma elemanı iyi. Kapsül uyumluluğu kontrol et.",checklist:["Pompa basıncını test et","Isıtma süresini kontrol et","Kapsül uyumluluğunu test et","Ses seviyesini kontrol et","Temizlik fonksiyonunu test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:41,name:"Philips Hue Smart Lights",model:"Philips",category:"ev-aleti",emoji:"💡",riskScore:2,riskLevel:"safe",chronicIssues:"Akıllı ışıklar güvenilir. Bağlantı sorunları nadir. Renk kalitesi harika. Yazılım güncellemeleri düzenli.",checklist:["Bağlantıyı test et","Renk kalitesini kontrol et","Parlaklık seviyelerini test et","Ses kontrolünü test et","Uygulamayı test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:42,name:"Amazon Echo Dot 5",model:"Amazon",category:"ev-aleti",emoji:"🔊",riskScore:2,riskLevel:"safe",chronicIssues:"Echo Dot güvenilir akıllı hoparlör. Ses kalitesi iyi. Mikrofon hassas. Yazılım güncellemeleri otomatik.",checklist:["Ses kalitesini test et","Mikrofonu test et","Bağlantıyı test et","Komut tanımasını test et","Müzik akışını test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:43,name:"Sonos Arc",model:"Sonos",category:"ev-aleti",emoji:"🔊",riskScore:2,riskLevel:"safe",chronicIssues:"Sonos Arc premium hoparlör. Ses kalitesi mükemmel. Bağlantı güvenilir. Yazılım güncellemeleri iyi.",checklist:["Ses kalitesini test et","Bağlantıyı test et","HDMI portunu test et","Yazılım sürümünü kontrol et","Ağ bağlantısını test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:44,name:"GoPro Hero 12",model:"GoPro",category:"ev-aleti",emoji:"📹",riskScore:3,riskLevel:"safe",chronicIssues:"GoPro güvenilir aksiyon kamerası. Batarya ömrü 2-3 saat. Video kalitesi harika. Suya dayanıklılık iyi.",checklist:["Batarya sağlığını kontrol et","Video kalitesini test et","Sensörleri test et","Ses sistemini test et","Suya dayanıklılığı kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:45,name:"DJI Mini 3 Pro",model:"DJI",category:"ev-aleti",emoji:"🚁",riskScore:4,riskLevel:"safe",chronicIssues:"DJI drone güvenilir. Batarya kapasitesi kontrol et. Kamera kalitesi harika. Uçuş süresi 30 dakika kadar.",checklist:["Batarya sağlığını kontrol et","Kamera kalitesini test et","Motorları test et","Sensörleri test et","Uçuş süresi kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:46,name:"Kindle Paperwhite",model:"Amazon",category:"ev-aleti",emoji:"📖",riskScore:2,riskLevel:"safe",chronicIssues:"Kindle güvenilir e-reader. Batarya ömrü 10 hafta kadar. Ekran kalitesi iyi. Yazı tipi seçenekleri geniş.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Dokunmatik ekranı test et","Kitap indirmeyi test et","Yazılım sürümünü kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:47,name:"iPad Pro 12.9 M2",model:"Apple",category:"ev-aleti",emoji:"📱",riskScore:2,riskLevel:"safe",chronicIssues:"iPad Pro güçlü ve güvenilir. Batarya ömrü 10 saat kadar. Ekran kalitesi mükemmel. Performans harika.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Apple Pencil uyumluluğunu test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:48,name:"Samsung Galaxy Tab S9 Ultra",model:"Samsung",category:"ev-aleti",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"Galaxy Tab güvenilir tablet. Batarya ömrü 8-10 saat. Ekran kalitesi harika. Performans yüksek.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Stylus uyumluluğunu test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:49,name:"Sony WH-1000XM5",model:"Sony",category:"ev-aleti",emoji:"🎧",riskScore:2,riskLevel:"safe",chronicIssues:"Sony kulaklık harika ses kalitesi. Gürültü iptal mükemmel. Batarya ömrü 30 saat. Konfor iyi.",checklist:["Batarya sağlığını kontrol et","Ses kalitesini test et","Gürültü iptalini test et","Bağlantıyı test et","Konforunu kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
+            {id:50,name:"Apple AirPods Pro",model:"Apple",category:"ev-aleti",emoji:"🎧",riskScore:2,riskLevel:"safe",chronicIssues:"AirPods Pro güvenilir kulaklık. Ses kalitesi harika. Gürültü iptal iyi. Batarya ömrü 6 saat.",checklist:["Batarya sağlığını kontrol et","Ses kalitesini test et","Gürültü iptalini test et","Bağlantıyı test et","Konforunu kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]}
         ];
 
         let filteredProducts = [...products];
@@ -659,6 +693,7 @@
         function init() {
             renderProducts();
             setupEventListeners();
+            setupScrollToTop();
         }
 
         // Render Products
@@ -829,6 +864,27 @@
                 if (e.key === "Escape") {
                     closeModal();
                 }
+            });
+        }
+
+        // Scroll to Top Setup
+        function setupScrollToTop() {
+            const scrollBtn = document.getElementById("scrollToTopBtn");
+            
+            window.addEventListener("scroll", () => {
+                if (window.pageYOffset > 300) {
+                    scrollBtn.classList.add("show");
+                } else {
+                    scrollBtn.classList.remove("show");
+                }
+            });
+        }
+
+        // Scroll to Top Function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
             });
         }
 
