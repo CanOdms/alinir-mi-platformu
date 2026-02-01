@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alınır Mı? | İkinci El Rehberi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: #475569;
+            --accent-green: #10b981;
+            --accent-orange: #f97316;
+            --accent-red: #ef4444;
+            --accent-blue: #3b82f6;
+            --card-bg: #1e293b;
+            --hover-bg: #334155;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🔍";
+            font-size: 1.8rem;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            background-color: var(--bg-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: var(--hover-bg);
+            border-color: var(--accent-blue);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background-color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .results-info {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Grid Layout */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Product Card */
+        .product-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--hover-bg) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .product-content {
+            padding: 1.25rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-badges {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-category {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: var(--accent-blue);
+        }
+
+        .badge-risk {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+        }
+
+        .badge-risk.warning {
+            background-color: rgba(249, 115, 22, 0.2);
+            color: var(--accent-orange);
+        }
+
+        .badge-risk.danger {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .product-model {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .risk-score {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: auto;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .risk-score-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .risk-score-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .risk-score-value.warning {
+            color: var(--accent-orange);
+        }
+
+        .risk-score-value.danger {
+            color: var(--accent-red);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .modal-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            padding: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .modal-section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-section-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 1.75rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .checklist li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .risk-info {
+            background-color: var(--bg-tertiary);
+            border-left: 3px solid var(--accent-blue);
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-top: 1rem;
+        }
+
+        .risk-info-title {
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .risk-info-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 1rem;
+            }
+
+            .filter-buttons {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .main-container {
+                padding: 1rem;
+            }
+
+            .filter-section {
+                padding: 1rem;
+            }
+
+            .header-container {
+                padding: 1rem;
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">Alınır Mı?</a>
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="searchInput" 
+                    placeholder="Ürün, model veya marka ara..."
+                >
+            </div>
+        </div>
+    </header>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <label class="filter-label">Kategoriye Göre Filtrele:</label>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Tümü</button>
+            <button class="filter-btn" data-filter="telefon">📱 Telefon</button>
+            <button class="filter-btn" data-filter="laptop">💻 Laptop</button>
+            <button class="filter-btn" data-filter="ev-aleti">🏠 Ev Aletleri</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <div class="results-info">
+            <span id="resultCount">4</span> ürün listeleniyor
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-state-icon">🔍</div>
+            <div class="empty-state-title">Sonuç Bulunamadı</div>
+            <p>Arama kriterlerinize uygun ürün bulunamadı. Lütfen filtreleri kontrol edin.</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <div class="modal-title" id="modalProductName"></div>
+                    <div class="modal-subtitle" id="modalProductModel"></div>
+                </div>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <div class="modal-section-title">📊 Risk Puanı</div>
+                    <div class="modal-section-content" id="modalRiskScore"></div>
+                </div>
+
+                <div class="modal-section">
+                    <div class="modal-section-title">🔍 Kronik Sorun Analizi</div>
+                    <div class="modal-section-content" id="modalChronicIssues"></div>
+                </div>
+
+                <div class="modal-section">
+                    <div class="modal-section-title">✓ Alırken Kontrol Listesi</div>
+                    <ul class="checklist" id="modalChecklist"></ul>
+                </div>
+
+                <div class="risk-info" id="modalRiskInfo"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product Data
+        const products = [
+            {
+                id: 1,
+                name: "iPhone 11",
+                model: "Apple",
+                category: "telefon",
+                emoji: "📱",
+                riskScore: 3,
+                riskLevel: "safe",
+                chronicIssues: "iPhone 11 genellikle güvenilir bir modeldir. Batarya sağlığı 80% üzerine çıkmalı. Ekran hasarı ve su hasarı en yaygın sorunlardır.",
+                checklist: [
+                    "Batarya sağlığını kontrol et (Settings > Battery > Battery Health)",
+                    "Ekran ve arka cam için çatlak/hasar kontrol et",
+                    "Face ID'nin düzgün çalışıp çalışmadığını test et",
+                    "Kamera lensleri temiz mi kontrol et",
+                    "Ses ve titreşim motorunu test et",
+                    "Orijinal şarj cihazı ile gelip gelmediğini sor",
+                    "Garantisi var mı kontrol et"
+                ]
+            },
+            {
+                id: 2,
+                name: "Dyson V15 Detect",
+                model: "Dyson",
+                category: "ev-aleti",
+                emoji: "🧹",
+                riskScore: 6,
+                riskLevel: "warning",
+                chronicIssues: "Dyson süpürgeler yüksek fiyatlı olduğu için dikkat gerekir. Motor gürültüsü ve batarya kapasitesi kontrol edilmeli. Filtre değişim maliyeti yüksektir.",
+                checklist: [
+                    "Motor gücünü test et (normal ve turbo modu)",
+                    "Batarya çalışma süresini ölç (40 dakika olmalı)",
+                    "Filtre temizliğini kontrol et",
+                    "Emme gücünün azalıp azalmadığını test et",
+                    "Tüm aksesuar ve ataşmanları kontrol et",
+                    "Orijinal batarya olup olmadığını doğrula",
+                    "Servis kaydını sor (garanti aktif mi?)"
+                ]
+            },
+            {
+                id: 3,
+                name: "MacBook Pro 13\"",
+                model: "2019 Intel",
+                category: "laptop",
+                emoji: "💻",
+                riskScore: 8,
+                riskLevel: "danger",
+                chronicIssues: "2019 Intel MacBook Pro'lar klavye sorunları ile bilinir (Butterfly mekanizması). Termal sorunlar ve batarya sağlığı kritik. Orijinal olmayan parça değişimi sorunu yaratabilir.",
+                checklist: [
+                    "Butterfly klavyenin tüm tuşlarını test et",
+                    "Batarya sağlığını kontrol et (System Report > Power)",
+                    "Termal performansı kontrol et (Macs Fan Control kullan)",
+                    "SSD'nin çalışıp çalışmadığını test et",
+                    "Ekran açılıp kapanırken gürültü var mı kontrol et",
+                    "Orijinal Apple servis kaydını sor",
+                    "Garantisi kalmış mı ve AppleCare+ var mı kontrol et"
+                ]
+            },
+            {
+                id: 4,
+                name: "Samsung Galaxy A12",
+                model: "Samsung",
+                category: "telefon",
+                emoji: "📱",
+                riskScore: 4,
+                riskLevel: "safe",
+                chronicIssues: "Galaxy A12 bütçe dostu bir telefondur. Batarya kapasitesi 5000mAh'dir ve iyi dayanır. Yazılım güncellemeleri sınırlı olabilir.",
+                checklist: [
+                    "Batarya kapasitesini kontrol et (Settings > Device Care)",
+                    "Ekran yanması var mı kontrol et",
+                    "Kamera kalitesini test et",
+                    "Şarj hızını ölç",
+                    "Yazılım sürümünü kontrol et",
+                    "Mikrofon ve hoparlörü test et",
+                    "Fiziksel hasarları kontrol et"
+                ]
+            }
+        ];
+
+        let filteredProducts = [...products];
+        let currentFilter = "all";
+
+        // Initialize
+        function init() {
+            renderProducts();
+            setupEventListeners();
+        }
+
+        // Render Products
+        function renderProducts() {
+            const grid = document.getElementById("productsGrid");
+            const emptyState = document.getElementById("emptyState");
+            const resultCount = document.getElementById("resultCount");
+
+            if (filteredProducts.length === 0) {
+                grid.style.display = "none";
+                emptyState.style.display = "block";
+                resultCount.textContent = "0";
+                return;
+            }
+
+            grid.style.display = "grid";
+            emptyState.style.display = "none";
+            resultCount.textContent = filteredProducts.length;
+
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card" onclick="openModal(${product.id})">
+                    <div class="product-image">${product.emoji}</div>
+                    <div class="product-content">
+                        <div class="product-badges">
+                            <span class="badge badge-category">${product.category.toUpperCase()}</span>
+                            <span class="badge badge-risk ${getRiskClass(product.riskScore)}">
+                                ${product.riskScore}/10 ${getRiskLabel(product.riskScore)}
+                            </span>
+                        </div>
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-model">${product.model}</div>
+                        <div class="risk-score">
+                            <span class="risk-score-label">Risk Puanı:</span>
+                            <span class="risk-score-value ${getRiskClass(product.riskScore)}">
+                                ${product.riskScore}/10
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        // Get Risk Class
+        function getRiskClass(score) {
+            if (score <= 3) return "";
+            if (score <= 6) return "warning";
+            return "danger";
+        }
+
+        // Get Risk Label
+        function getRiskLabel(score) {
+            if (score <= 3) return "✓ Güvenli";
+            if (score <= 6) return "⚠ Dikkat";
+            return "✗ Yüksek Risk";
+        }
+
+        // Open Modal
+        function openModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            document.getElementById("modalProductName").textContent = product.name;
+            document.getElementById("modalProductModel").textContent = product.model;
+            document.getElementById("modalRiskScore").innerHTML = `
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <div style="font-size: 2.5rem; font-weight: 700; color: ${getRiskColor(product.riskScore)};">
+                        ${product.riskScore}/10
+                    </div>
+                    <div>
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--text-primary);">
+                            ${getRiskLabel(product.riskScore)}
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">
+                            ${getRiskDescription(product.riskScore)}
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById("modalChronicIssues").textContent = product.chronicIssues;
+            document.getElementById("modalChecklist").innerHTML = product.checklist
+                .map(item => `<li>${item}</li>`)
+                .join("");
+
+            const riskColor = getRiskColor(product.riskScore);
+            document.getElementById("modalRiskInfo").innerHTML = `
+                <div class="risk-info-title" style="color: ${riskColor};">
+                    ${getRiskLabel(product.riskScore)} - Dikkat Edilmesi Gerekenler
+                </div>
+                <div class="risk-info-text">
+                    ${getRiskAdvice(product.riskScore)}
+                </div>
+            `;
+
+            document.getElementById("productModal").classList.add("active");
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById("productModal").classList.remove("active");
+        }
+
+        // Get Risk Color
+        function getRiskColor(score) {
+            if (score <= 3) return "var(--accent-green)";
+            if (score <= 6) return "var(--accent-orange)";
+            return "var(--accent-red)";
+        }
+
+        // Get Risk Description
+        function getRiskDescription(score) {
+            if (score <= 3) return "Bu ürün satın almak için güvenlidir";
+            if (score <= 6) return "Dikkatli inceleme yapılmalıdır";
+            return "Satın almadan önce uzman görüşü alınız";
+        }
+
+        // Get Risk Advice
+        function getRiskAdvice(score) {
+            if (score <= 3) {
+                return "Bu ürün nispeten güvenli bir seçimdir. Yine de kontrol listesini tamamlayın ve satıcıyı sorgulamaktan çekinmeyin.";
+            }
+            if (score <= 6) {
+                return "Bu ürün bazı potansiyel sorunlar içerebilir. Kontrol listesini dikkatli bir şekilde takip edin ve satıcının açık ve dürüst olduğundan emin olun.";
+            }
+            return "Bu ürün satın almadan önce çok dikkatli olun. Mümkünse bir teknisyen ile birlikte kontrol edin veya satın almaktan vazgeçmeyi düşünün.";
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Search
+            document.getElementById("searchInput").addEventListener("input", (e) => {
+                const query = e.target.value.toLowerCase();
+                filteredProducts = products.filter(p => {
+                    const matchesSearch = p.name.toLowerCase().includes(query) || 
+                                        p.model.toLowerCase().includes(query);
+                    const matchesFilter = currentFilter === "all" || p.category === currentFilter;
+                    return matchesSearch && matchesFilter;
+                });
+                renderProducts();
+            });
+
+            // Filters
+            document.querySelectorAll(".filter-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    currentFilter = btn.dataset.filter;
+
+                    const searchQuery = document.getElementById("searchInput").value.toLowerCase();
+                    filteredProducts = products.filter(p => {
+                        const matchesSearch = p.name.toLowerCase().includes(searchQuery) || 
+                                            p.model.toLowerCase().includes(searchQuery);
+                        const matchesFilter = currentFilter === "all" || p.category === currentFilter;
+                        return matchesSearch && matchesFilter;
+                    });
+                    renderProducts();
+                });
+            });
+
+            // Modal Close
+            document.getElementById("productModal").addEventListener("click", (e) => {
+                if (e.target.id === "productModal") {
+                    closeModal();
+                }
+            });
+
+            // Keyboard ESC to close modal
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") {
+                    closeModal();
+                }
+            });
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>
