@@ -11,163 +11,123 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-tertiary: #334155;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --border-color: #475569;
-            --accent-green: #10b981;
-            --accent-orange: #f97316;
-            --accent-red: #ef4444;
-            --accent-blue: #3b82f6;
-            --card-bg: #1e293b;
-            --hover-bg: #334155;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1a2847 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding-bottom: 50px;
         }
 
-        /* Header & Navigation */
         header {
-            background-color: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(135deg, #0f172a 0%, #1a2847 100%);
+            padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .header-container {
+        .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
+            padding: 0 20px;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent-blue);
-            text-decoration: none;
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 10px;
         }
 
         .logo::before {
             content: "🔍";
-            font-size: 1.8rem;
+            font-size: 32px;
         }
 
         .search-container {
-            flex: 1;
-            max-width: 500px;
+            margin-bottom: 20px;
         }
 
-        .search-input {
+        #searchInput {
             width: 100%;
-            padding: 0.75rem 1rem;
-            background-color: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
-            color: var(--text-primary);
-            font-size: 0.95rem;
+            padding: 12px 20px;
+            border: 2px solid #00ff88;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            font-size: 16px;
             transition: all 0.3s ease;
         }
 
-        .search-input:focus {
+        #searchInput:focus {
             outline: none;
-            border-color: var(--accent-blue);
-            background-color: var(--bg-primary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
         }
 
-        .search-input::placeholder {
-            color: var(--text-secondary);
+        #searchInput::placeholder {
+            color: #888;
         }
 
-        /* Filter Section */
-        .filter-section {
-            background-color: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .filter-label {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 0.75rem;
-            display: block;
-        }
-
-        .filter-buttons {
+        .filters {
             display: flex;
-            gap: 0.75rem;
+            gap: 10px;
             flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
-        .filter-btn {
-            padding: 0.5rem 1rem;
-            background-color: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            border-radius: 0.375rem;
+        .filters label {
+            color: #00ff88;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .filters button {
+            padding: 10px 20px;
+            border: 2px solid #00ff88;
+            background: transparent;
+            color: #e0e0e0;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.3s ease;
+            font-size: 14px;
         }
 
-        .filter-btn:hover {
-            background-color: var(--hover-bg);
-            border-color: var(--accent-blue);
-            color: var(--text-primary);
+        .filters button:hover {
+            background: rgba(0, 255, 136, 0.2);
+            transform: translateY(-2px);
         }
 
-        .filter-btn.active {
-            background-color: var(--accent-blue);
-            border-color: var(--accent-blue);
-            color: white;
+        .filters button.active {
+            background: #00ff88;
+            color: #0f172a;
         }
 
-        /* Main Container */
-        .main-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
+        .product-count {
+            color: #00ff88;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 14px;
         }
 
-        .results-info {
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-        }
-
-        /* Grid Layout */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
-        /* Product Card */
         .product-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
+            background: linear-gradient(135deg, #1a2847 0%, #243456 100%);
+            border: 2px solid #00ff88;
+            border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -176,118 +136,92 @@
         }
 
         .product-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-blue);
-            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.2);
+            border-color: #00ffff;
         }
 
         .product-image {
             width: 100%;
             height: 200px;
-            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--hover-bg) 100%);
+            background: linear-gradient(135deg, #2a3f5f 0%, #1f2d45 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            border-bottom: 1px solid var(--border-color);
-            overflow: hidden;
+            font-size: 60px;
+            border-bottom: 2px solid #00ff88;
         }
 
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .product-content {
-            padding: 1.25rem;
-            flex: 1;
+        .product-info {
+            padding: 15px;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
-        .product-badges {
+        .product-header {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            gap: 10px;
         }
 
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.375rem 0.75rem;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
+        .category-badge {
+            background: rgba(0, 255, 136, 0.15);
+            color: #00ff88;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
             font-weight: 600;
-            white-space: nowrap;
         }
 
-        .badge-category {
-            background-color: rgba(59, 130, 246, 0.2);
-            color: var(--accent-blue);
+        .risk-badge {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            min-width: 70px;
         }
 
-        .badge-risk {
-            background-color: rgba(16, 185, 129, 0.2);
-            color: var(--accent-green);
+        .risk-safe {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid #22c55e;
         }
 
-        .badge-risk.warning {
-            background-color: rgba(249, 115, 22, 0.2);
-            color: var(--accent-orange);
+        .risk-warning {
+            background: rgba(251, 146, 60, 0.2);
+            color: #fb923c;
+            border: 1px solid #fb923c;
         }
 
-        .badge-risk.danger {
-            background-color: rgba(239, 68, 68, 0.2);
-            color: var(--accent-red);
+        .risk-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
         }
 
         .product-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
-        }
-
-        .product-model {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.75rem;
-        }
-
-        .risk-score {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: auto;
-            padding-top: 0.75rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .risk-score-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .risk-score-value {
-            font-size: 1.25rem;
+            font-size: 18px;
             font-weight: 700;
-            color: var(--accent-green);
+            color: #ffffff;
+            margin-bottom: 5px;
         }
 
-        .risk-score-value.warning {
-            color: var(--accent-orange);
+        .product-brand {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 10px;
         }
 
-        .risk-score-value.danger {
-            color: var(--accent-red);
+        .product-score {
+            font-size: 14px;
+            color: #00ff88;
+            font-weight: 600;
         }
 
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -296,39 +230,31 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             animation: fadeIn 0.3s ease;
         }
 
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            max-width: 600px;
+            background: linear-gradient(135deg, #1a2847 0%, #243456 100%);
+            margin: 5% auto;
+            padding: 30px;
+            border: 2px solid #00ff88;
+            border-radius: 12px;
             width: 90%;
-            max-height: 90vh;
+            max-width: 600px;
+            max-height: 80vh;
             overflow-y: auto;
-            animation: slideUp 0.3s ease;
+            animation: slideIn 0.3s ease;
         }
 
-        @keyframes slideUp {
+        @keyframes slideIn {
             from {
-                transform: translateY(20px);
+                transform: translateY(-50px);
                 opacity: 0;
             }
             to {
@@ -338,69 +264,92 @@
         }
 
         .modal-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #00ff88;
+            padding-bottom: 15px;
         }
 
         .modal-title {
-            font-size: 1.5rem;
+            font-size: 24px;
             font-weight: 700;
-            color: var(--text-primary);
+            color: #ffffff;
         }
 
-        .modal-subtitle {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            margin-top: 0.25rem;
+        .modal-brand {
+            font-size: 14px;
+            color: #888;
+            margin-top: 5px;
         }
 
-        .modal-close {
+        .close-btn {
             background: none;
             border: none;
-            color: var(--text-secondary);
-            font-size: 1.5rem;
+            color: #00ff88;
+            font-size: 28px;
             cursor: pointer;
-            transition: color 0.2s ease;
-            padding: 0;
-            width: 2rem;
-            height: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transition: all 0.3s ease;
         }
 
-        .modal-close:hover {
-            color: var(--text-primary);
-        }
-
-        .modal-body {
-            padding: 1.5rem;
+        .close-btn:hover {
+            color: #00ffff;
+            transform: rotate(90deg);
         }
 
         .modal-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-section:last-child {
-            margin-bottom: 0;
+            margin-bottom: 20px;
         }
 
         .modal-section-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--accent-blue);
-            margin-bottom: 0.75rem;
+            font-size: 16px;
+            font-weight: 700;
+            color: #00ff88;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
         }
 
-        .modal-section-content {
-            color: var(--text-secondary);
+        .risk-score {
+            font-size: 48px;
+            font-weight: 700;
+            color: #00ff88;
+            margin-bottom: 10px;
+        }
+
+        .risk-score.warning {
+            color: #fb923c;
+        }
+
+        .risk-score.danger {
+            color: #ef4444;
+        }
+
+        .risk-status {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .risk-status.safe {
+            color: #22c55e;
+        }
+
+        .risk-status.warning {
+            color: #fb923c;
+        }
+
+        .risk-status.danger {
+            color: #ef4444;
+        }
+
+        .analysis-text {
+            color: #c0c0c0;
             line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 15px;
         }
 
         .checklist {
@@ -408,488 +357,362 @@
         }
 
         .checklist li {
-            padding: 0.5rem 0;
-            padding-left: 1.75rem;
-            position: relative;
-            color: var(--text-secondary);
+            padding: 8px 0;
+            color: #c0c0c0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .checklist li::before {
             content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--accent-green);
-            font-weight: bold;
+            color: #00ff88;
+            font-weight: 700;
+            font-size: 16px;
         }
 
-        .risk-info {
-            background-color: var(--bg-tertiary);
-            border-left: 3px solid var(--accent-blue);
-            padding: 1rem;
-            border-radius: 0.375rem;
-            margin-top: 1rem;
-        }
-
-        .risk-info-title {
-            font-weight: 600;
-            color: var(--accent-blue);
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .risk-info-text {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        /* Scroll to Top Button */
         .scroll-to-top {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+            bottom: 30px;
+            right: 30px;
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%);
+            background: linear-gradient(135deg, #00ff88 0%, #00ffff 100%);
             border: none;
             border-radius: 50%;
-            color: white;
-            font-size: 1.5rem;
+            color: #0f172a;
+            font-size: 24px;
             cursor: pointer;
             display: none;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
             transition: all 0.3s ease;
-            z-index: 99;
+            z-index: 999;
+            font-weight: 700;
         }
 
         .scroll-to-top:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0, 255, 136, 0.6);
         }
 
         .scroll-to-top.show {
             display: flex;
         }
 
-        /* Responsive */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+
+        .empty-state-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state-text {
+            font-size: 18px;
+            color: #888;
+        }
+
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .search-container {
-                max-width: 100%;
-            }
-
             .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 1rem;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
             }
 
-            .filter-buttons {
-                gap: 0.5rem;
-            }
-
-            .filter-btn {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.8rem;
-            }
-
-            .main-container {
-                padding: 1rem;
-            }
-
-            .filter-section {
-                padding: 1rem;
-            }
-
-            .header-container {
-                padding: 1rem;
+            .modal-content {
+                width: 95%;
+                margin: 20% auto;
+                padding: 20px;
             }
 
             .scroll-to-top {
                 width: 45px;
                 height: 45px;
-                bottom: 1.5rem;
-                right: 1.5rem;
-                font-size: 1.2rem;
+                bottom: 20px;
+                right: 20px;
+                font-size: 20px;
             }
-        }
 
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: var(--text-secondary);
-        }
+            .filters {
+                gap: 8px;
+            }
 
-        .empty-state-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .empty-state-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            .filters button {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
-        <div class="header-container">
-            <a href="#" class="logo">Alınır Mı?</a>
+        <div class="container">
+            <div class="logo">Alınır Mı?</div>
             <div class="search-container">
-                <input 
-                    type="text" 
-                    class="search-input" 
-                    id="searchInput" 
-                    placeholder="Ürün, model veya marka ara..."
-                >
+                <input type="text" id="searchInput" placeholder="Ürün, model veya marka ara...">
+            </div>
+            <div class="filters">
+                <label>Kategoriye Göre Filtrele:</label>
+                <button class="filter-btn active" data-filter="all">Tümü</button>
+                <button class="filter-btn" data-filter="telefon">📱 Telefon</button>
+                <button class="filter-btn" data-filter="laptop">💻 Laptop</button>
+                <button class="filter-btn" data-filter="konsol">🎮 Konsol</button>
+                <button class="filter-btn" data-filter="ev-aleti">🏠 Ev Aletleri</button>
             </div>
         </div>
     </header>
 
-    <!-- Filter Section -->
-    <div class="filter-section">
-        <label class="filter-label">Kategoriye Göre Filtrele:</label>
-        <div class="filter-buttons">
-            <button class="filter-btn active" data-filter="all">Tümü</button>
-            <button class="filter-btn" data-filter="telefon">📱 Telefon</button>
-            <button class="filter-btn" data-filter="laptop">💻 Laptop</button>
-            <button class="filter-btn" data-filter="konsol">🎮 Konsol</button>
-            <button class="filter-btn" data-filter="ev-aleti">🏠 Ev Aletleri</button>
-        </div>
-    </div>
-
-    <!-- Main Container -->
-    <div class="main-container">
-        <div class="results-info">
-            <span id="resultCount">50</span> ürün listeleniyor
-        </div>
-
-        <!-- Products Grid -->
-        <div class="products-grid" id="productsGrid">
-            <!-- Products will be inserted here by JavaScript -->
-        </div>
-
-        <!-- Empty State -->
+    <main class="container">
+        <div class="product-count" id="productCount">Ürünler yükleniyor...</div>
+        <div class="products-grid" id="productsGrid"></div>
         <div class="empty-state" id="emptyState" style="display: none;">
             <div class="empty-state-icon">🔍</div>
-            <div class="empty-state-title">Sonuç Bulunamadı</div>
-            <p>Arama kriterlerinize uygun ürün bulunamadı. Lütfen filtreleri kontrol edin.</p>
+            <div class="empty-state-text">Aradığınız ürün bulunamadı</div>
         </div>
-    </div>
+    </main>
 
-    <!-- Modal -->
-    <div class="modal" id="productModal">
+    <div id="productModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <div>
-                    <div class="modal-title" id="modalProductName"></div>
-                    <div class="modal-subtitle" id="modalProductModel"></div>
+                    <div class="modal-title" id="modalTitle"></div>
+                    <div class="modal-brand" id="modalBrand"></div>
                 </div>
-                <button class="modal-close" onclick="closeModal()">✕</button>
+                <button class="close-btn" onclick="closeModal()">✕</button>
             </div>
-            <div class="modal-body">
-                <div class="modal-section">
-                    <div class="modal-section-title">📊 Risk Puanı</div>
-                    <div class="modal-section-content" id="modalRiskScore"></div>
-                </div>
 
-                <div class="modal-section">
-                    <div class="modal-section-title">🔍 Kronik Sorun Analizi</div>
-                    <div class="modal-section-content" id="modalChronicIssues"></div>
-                </div>
+            <div class="modal-section">
+                <div class="modal-section-title">📊 Risk Puanı</div>
+                <div class="risk-score" id="modalRiskScore"></div>
+                <div class="risk-status" id="modalRiskStatus"></div>
+            </div>
 
-                <div class="modal-section">
-                    <div class="modal-section-title">✓ Alırken Kontrol Listesi</div>
-                    <ul class="checklist" id="modalChecklist"></ul>
-                </div>
+            <div class="modal-section">
+                <div class="modal-section-title">🔍 Kronik Sorun Analizi</div>
+                <div class="analysis-text" id="modalAnalysis"></div>
+            </div>
 
-                <div class="risk-info" id="modalRiskInfo"></div>
+            <div class="modal-section">
+                <div class="modal-section-title">✓ Alırken Kontrol Listesi</div>
+                <ul class="checklist" id="modalChecklist"></ul>
+            </div>
+
+            <div class="modal-section">
+                <div class="modal-section-title" id="modalRecommendation"></div>
+                <div class="analysis-text" id="modalRecommendationText"></div>
             </div>
         </div>
     </div>
 
-    <!-- Scroll to Top Button -->
-    <button class="scroll-to-top" id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
+    <button id="scrollToTopBtn" class="scroll-to-top">↑</button>
 
     <script>
-        // Product Data - 50 Popüler Ürün
         const products = [
-            // TELEFON - iPhone
-            {id:1,name:"iPhone 15 Pro Max",model:"Apple",category:"telefon",emoji:"📱",riskScore:2,riskLevel:"safe",chronicIssues:"iPhone 15 Pro Max yeni model olduğu için çok az sorun biliniyor. Ekran kalitesi mükemmel, kamera sistemi ileri. Batarya sağlığı henüz test edilmemiş.",checklist:["Ekran ve kamera sistemini test et","Batarya kapasitesini kontrol et","USB-C portunun çalışıp çalışmadığını test et","Titanyum çerçevenin hasarını kontrol et","Termal performansı kontrol et","Orijinal aksesuar ve kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:2,name:"iPhone 15",model:"Apple",category:"telefon",emoji:"📱",riskScore:2,riskLevel:"safe",chronicIssues:"iPhone 15 standart model güvenilir bir seçim. A17 Pro çipi güçlü, kamera kalitesi yüksek. Batarya sağlığı önemli kontrol noktası.",checklist:["Ekran yanması var mı kontrol et","Kamera kalitesini test et","Batarya sağlığını kontrol et","USB-C şarj hızını ölç","Ses ve titreşim motorunu test et","Fiziksel hasarları kontrol et","Yazılım sürümünü kontrol et"]},
-            {id:3,name:"iPhone 14 Pro",model:"Apple",category:"telefon",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"iPhone 14 Pro hala güzel bir seçim. Kamera sistemi profesyonel seviye. Batarya sağlığı 80% üzerine çıkmalı. Termal sorunlar nadir.",checklist:["Batarya sağlığını kontrol et","Kamera lensleri temiz mi kontrol et","Ekran yanması var mı test et","Face ID'nin düzgün çalışıp çalışmadığını test et","Titreşim motorunu test et","Orijinal şarj cihazı ile gelip gelmediğini sor","AppleCare+ var mı kontrol et"]},
-            {id:4,name:"iPhone 13",model:"Apple",category:"telefon",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"iPhone 13 popüler ve güvenilir model. Batarya sağlığı 85% üzerine çıkmalı. Ekran kalitesi mükemmel. Kamera sistemi çok iyi.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı kontrol et","Kamera test et","Face ID'yi test et","Ses hoparlörü test et","Orijinal kutusu ve aksesuar var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:5,name:"iPhone 12",model:"Apple",category:"telefon",emoji:"📱",riskScore:4,riskLevel:"safe",chronicIssues:"iPhone 12 hala iyi bir seçim. Batarya kapasitesi 2815 mAh. Ekran kalitesi OLED. Nadir de olsa ısınma sorunları rapor edilmiş.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Termal performansı kontrol et","Ses sistemini test et","Fiziksel hasarları kontrol et","Yazılım güncellemesi alıp almadığını kontrol et"]},
-            {id:6,name:"iPhone 11",model:"Apple",category:"telefon",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"iPhone 11 güvenilir bir model. Batarya sağlığı 80% üzerine çıkmalı. Ekran hasarı ve su hasarı en yaygın sorunlar.",checklist:["Batarya sağlığını kontrol et","Ekran ve arka cam için çatlak kontrol et","Face ID'yi test et","Kamera lensleri temiz mi kontrol et","Ses ve titreşim motorunu test et","Orijinal şarj cihazı ile gelip gelmediğini sor","Garantisi var mı kontrol et"]},
-            {id:7,name:"Samsung Galaxy S24 Ultra",model:"Samsung",category:"telefon",emoji:"📱",riskScore:2,riskLevel:"safe",chronicIssues:"S24 Ultra yeni model, çok az bilinen sorun var. Ekran kalitesi harika. Kamera sistemi profesyonel. Batarya dayanıklı.",checklist:["Ekran yanması var mı kontrol et","Kamera kalitesini test et","Batarya kapasitesini kontrol et","S Pen'in çalışıp çalışmadığını test et","Hoparlörleri test et","Fiziksel hasarları kontrol et","Garantisi kalmış mı sor"]},
-            {id:8,name:"Samsung Galaxy S23",model:"Samsung",category:"telefon",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"S23 güvenilir bir seçim. Ekran kalitesi mükemmel. Kamera sistemi çok iyi. Batarya sağlığı genellikle iyi.",checklist:["Ekran yanması var mı test et","Kamera kalitesini test et","Batarya sağlığını kontrol et","Ses sistemini test et","Titreşim motorunu test et","Orijinal aksesuar var mı kontrol et","Yazılım güncellemesi alıp almadığını kontrol et"]},
-            {id:9,name:"Samsung Galaxy S22",model:"Samsung",category:"telefon",emoji:"📱",riskScore:4,riskLevel:"safe",chronicIssues:"S22 hala iyi bir seçim. Ekran kalitesi harika. Kamera performansı yüksek. Nadir de olsa ısınma sorunları rapor edilmiş.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı kontrol et","Kamera test et","Termal performansı kontrol et","Hoparlörleri test et","Fiziksel hasarları kontrol et","Garantisi kalmış mı sor"]},
-            {id:10,name:"Samsung Galaxy A12",model:"Samsung",category:"telefon",emoji:"📱",riskScore:4,riskLevel:"safe",chronicIssues:"A12 bütçe dostu seçim. Batarya 5000mAh iyi dayanır. Yazılım güncellemeleri sınırlı olabilir. Performans orta seviye.",checklist:["Batarya kapasitesini kontrol et","Ekran yanması var mı kontrol et","Kamera kalitesini test et","Şarj hızını ölç","Yazılım sürümünü kontrol et","Mikrofon ve hoparlörü test et","Fiziksel hasarları kontrol et"]},
-            
-            // TELEFON - Diğer Markalar
-            {id:11,name:"Google Pixel 8 Pro",model:"Google",category:"telefon",emoji:"📱",riskScore:2,riskLevel:"safe",chronicIssues:"Pixel 8 Pro yeni model, kamera AI'sı harika. Yazılım güncellemeleri uzun süre. Batarya performansı iyi.",checklist:["Kamera kalitesini test et","Batarya sağlığını kontrol et","Ekran yanması var mı kontrol et","Ses sistemini test et","Titreşim motorunu test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:12,name:"OnePlus 12",model:"OnePlus",category:"telefon",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"OnePlus 12 hızlı ve güvenilir. Ekran kalitesi mükemmel. Batarya dayanıklı. Yazılım güncellemeleri düzenli.",checklist:["Ekran yanması var mı test et","Batarya sağlığını kontrol et","Kamera kalitesini test et","Şarj hızını ölç","Ses sistemini test et","Fiziksel hasarları kontrol et","Garantisi kalmış mı sor"]},
-            {id:13,name:"Xiaomi 14",model:"Xiaomi",category:"telefon",emoji:"📱",riskScore:4,riskLevel:"safe",chronicIssues:"Xiaomi 14 iyi fiyat-performans. Kamera sistemi Leica işbirliği. Batarya kapasitesi yüksek. Yazılım güncellemeleri iyi.",checklist:["Batarya sağlığını kontrol et","Kamera kalitesini test et","Ekran yanması var mı kontrol et","Şarj hızını ölç","Hoparlörleri test et","Fiziksel hasarları kontrol et","Garantisi kalmış mı sor"]},
-            {id:14,name:"Motorola Edge 50",model:"Motorola",category:"telefon",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"Motorola Edge 50 temiz yazılım, hızlı. Kamera kalitesi iyi. Batarya dayanıklı. Güncellemeler düzenli.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Titreşim motorunu test et","Orijinal aksesuar var mı kontrol et","Yazılım güncellemesi alıp almadığını kontrol et"]},
-            {id:15,name:"Huawei P60 Pro",model:"Huawei",category:"telefon",emoji:"📱",riskScore:5,riskLevel:"warning",chronicIssues:"P60 Pro güçlü kamera. Ancak Google hizmetleri yok. Yazılım güncellemeleri sınırlı. Batarya performansı iyi.",checklist:["Kamera kalitesini test et","Batarya sağlığını kontrol et","Ekran yanması var mı kontrol et","Huawei hizmetlerini test et","Ses sistemini test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-
-            // LAPTOP - Apple
-            {id:16,name:"MacBook Pro 16 M3 Max",model:"Apple",category:"laptop",emoji:"💻",riskScore:2,riskLevel:"safe",chronicIssues:"M3 Max çok güçlü, yeni model. Ekran harika. Batarya ömrü uzun. Termal yönetim mükemmel.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Trackpad'i test et","Orijinal kutusu var mı kontrol et","AppleCare+ var mı kontrol et"]},
-            {id:17,name:"MacBook Pro 14 M3",model:"Apple",category:"laptop",emoji:"💻",riskScore:2,riskLevel:"safe",chronicIssues:"M3 güçlü ve verimli. Ekran Liquid Retina XDR harika. Batarya 17 saat kadar dayanır. Soğutma sistemi sessiz.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Trackpad'i test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:18,name:"MacBook Air M2",model:"Apple",category:"laptop",emoji:"💻",riskScore:3,riskLevel:"safe",chronicIssues:"M2 güvenilir ve hızlı. Ekran kalitesi mükemmel. Batarya 15-18 saat dayanır. Termal sorunlar nadir.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Trackpad'i test et","Orijinal şarj cihazı var mı kontrol et","Yazılım güncellemesi alıp almadığını kontrol et"]},
-            {id:19,name:"MacBook Air M1",model:"Apple",category:"laptop",emoji:"💻",riskScore:3,riskLevel:"safe",chronicIssues:"M1 hala güçlü ve verimli. Batarya ömrü uzun. Ekran kalitesi harika. Yazılım desteği uzun.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Trackpad'i test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:20,name:"MacBook Pro 13 2019 Intel",model:"Apple",category:"laptop",emoji:"💻",riskScore:8,riskLevel:"danger",chronicIssues:"Butterfly klavye sorunları ile bilinir. Termal sorunlar ve batarya sağlığı kritik. Orijinal olmayan parça değişimi sorunu yaratabilir.",checklist:["Butterfly klavyenin tüm tuşlarını test et","Batarya sağlığını kontrol et","Termal performansı kontrol et","SSD'nin çalışıp çalışmadığını test et","Ekran açılıp kapanırken gürültü var mı kontrol et","Orijinal Apple servis kaydını sor","Garantisi kalmış mı ve AppleCare+ var mı kontrol et"]},
-
-            // LAPTOP - Windows
-            {id:21,name:"ASUS ROG Zephyrus G16",model:"ASUS",category:"laptop",emoji:"💻",riskScore:4,riskLevel:"safe",chronicIssues:"Gaming laptop, güçlü ve ağır. Batarya ömrü kısa (3-4 saat). Soğutma fanı gürültülü. Ekran kalitesi harika.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Klavyeyi test et","Soğutma fanının gürültüsünü kontrol et","Garantisi kalmış mı sor"]},
-            {id:22,name:"Dell XPS 15",model:"Dell",category:"laptop",emoji:"💻",riskScore:3,riskLevel:"safe",chronicIssues:"Premium laptop, kaliteli yapı. Batarya ömrü 8-10 saat. Ekran kalitesi mükemmel. Termal yönetim iyi.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Trackpad'i test et","Orijinal şarj cihazı var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:23,name:"Lenovo ThinkPad X1 Carbon",model:"Lenovo",category:"laptop",emoji:"💻",riskScore:3,riskLevel:"safe",chronicIssues:"İş laptopi, dayanıklı ve güvenilir. Batarya ömrü 10-12 saat. Ekran kalitesi iyi. Klavye mükemmel.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Klavyeyi test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:24,name:"HP Pavilion 15",model:"HP",category:"laptop",emoji:"💻",riskScore:4,riskLevel:"safe",chronicIssues:"Bütçe dostu laptop. Batarya ömrü 6-8 saat. Ekran kalitesi orta. Performans günlük işler için yeterli.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Klavyeyi test et","Fiziksel hasarları kontrol et","Garantisi kalmış mı sor"]},
-            {id:25,name:"MSI GE76 Raider",model:"MSI",category:"laptop",emoji:"💻",riskScore:5,riskLevel:"warning",chronicIssues:"Gaming laptop, güçlü ama sıcak. Batarya ömrü çok kısa. Soğutma sistemi gürültülü. Ekran refresh rate yüksek.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Soğutma fanının gürültüsünü kontrol et","Termal performansı kontrol et","Garantisi kalmış mı sor"]},
-
-            // KONSOL
-            {id:26,name:"PlayStation 5",model:"Sony",category:"konsol",emoji:"🎮",riskScore:3,riskLevel:"safe",chronicIssues:"PS5 güvenilir konsol. Disk drive sorunları nadir. Batarya kontrolörü iyi. Isınma sorunları çok nadir.",checklist:["Disk drive'ı test et","Kontrolörleri test et","HDMI portunu test et","USB portlarını test et","Ses sistemini test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:27,name:"PlayStation 4",model:"Sony",category:"konsol",emoji:"🎮",riskScore:4,riskLevel:"safe",chronicIssues:"PS4 hala güvenilir. Disk drive sorunları yaşanabilir. Fan gürültüsü artabilir. Batarya kontrolörü zayıflayabilir.",checklist:["Disk drive'ı test et","Kontrolörleri test et","HDMI portunu test et","USB portlarını test et","Fan gürültüsünü kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:28,name:"Xbox Series X",model:"Microsoft",category:"konsol",emoji:"🎮",riskScore:2,riskLevel:"safe",chronicIssues:"Xbox Series X güçlü ve güvenilir. Isınma sorunları çok nadir. Disk drive güvenilir. Kontrolörler iyi.",checklist:["Disk drive'ı test et","Kontrolörleri test et","HDMI portunu test et","USB portlarını test et","Ses sistemini test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:29,name:"Xbox Series S",model:"Microsoft",category:"konsol",emoji:"🎮",riskScore:2,riskLevel:"safe",chronicIssues:"Series S kompakt ve güvenilir. Isınma sorunları nadir. Disk drive güvenilir. Performans yüksek.",checklist:["Disk drive'ı test et","Kontrolörleri test et","HDMI portunu test et","USB portlarını test et","Ses sistemini test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:30,name:"Nintendo Switch",model:"Nintendo",category:"konsol",emoji:"🎮",riskScore:5,riskLevel:"warning",chronicIssues:"Joy-Con drift sorunu yaygın. Batarya kapasitesi zayıflayabilir. Ekran yanması olabilir. Dock sorunları rapor edilmiş.",checklist:["Joy-Con drift'i test et","Batarya kapasitesini kontrol et","Ekran yanması var mı test et","Dock'u test et","Ses sistemini test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-
-            // EV ALETLERİ
-            {id:31,name:"Dyson V15 Detect",model:"Dyson",category:"ev-aleti",emoji:"🧹",riskScore:6,riskLevel:"warning",chronicIssues:"Dyson pahalı olduğu için dikkat gerekir. Motor gürültüsü ve batarya kapasitesi kontrol edilmeli. Filtre değişim maliyeti yüksek.",checklist:["Motor gücünü test et","Batarya çalışma süresini ölç","Filtre temizliğini kontrol et","Emme gücünün azalıp azalmadığını test et","Tüm aksesuar ve ataşmanları kontrol et","Orijinal batarya olup olmadığını doğrula","Servis kaydını sor"]},
-            {id:32,name:"Dyson V12 Detect",model:"Dyson",category:"ev-aleti",emoji:"🧹",riskScore:5,riskLevel:"warning",chronicIssues:"V12 güçlü ama batarya kapasitesi kontrol edilmeli. Motor gürültüsü normal. Filtre değişim maliyeti yüksek.",checklist:["Motor gücünü test et","Batarya çalışma süresini ölç","Filtre temizliğini kontrol et","Emme gücünü test et","Aksesuar ve ataşmanları kontrol et","Orijinal batarya olup olmadığını doğrula","Garantisi kalmış mı sor"]},
-            {id:33,name:"Xiaomi Robot Vacuum",model:"Xiaomi",category:"ev-aleti",emoji:"🤖",riskScore:4,riskLevel:"safe",chronicIssues:"Robot süpürge güvenilir. Batarya kapasitesi kontrol edilmeli. Sensörler temiz mi kontrol et. Fırça değişim maliyeti düşük.",checklist:["Batarya kapasitesini kontrol et","Sensörleri test et","Fırçaları kontrol et","Harita oluşturma özelliğini test et","Ses seviyesini kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:34,name:"iRobot Roomba j7+",model:"iRobot",category:"ev-aleti",emoji:"🤖",riskScore:3,riskLevel:"safe",chronicIssues:"Roomba kaliteli robot. Batarya ömrü iyi. Sensörler güvenilir. Yazılım güncellemeleri düzenli.",checklist:["Batarya kapasitesini kontrol et","Sensörleri test et","Fırçaları kontrol et","Harita oluşturma özelliğini test et","Ses seviyesini kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:35,name:"LG OLED TV 55 inç",model:"LG",category:"ev-aleti",emoji:"📺",riskScore:5,riskLevel:"warning",chronicIssues:"OLED TV harika görüntü ama ekran yanması riski var. Batarya kontrolörü zayıflayabilir. Yazılım güncellemeleri sınırlı.",checklist:["Ekran yanması var mı test et","Tüm giriş portlarını test et","Ses sistemini test et","Uzaktan kumandayı test et","Yazılım sürümünü kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:36,name:"Samsung QLED TV 65 inç",model:"Samsung",category:"ev-aleti",emoji:"📺",riskScore:4,riskLevel:"safe",chronicIssues:"QLED TV kaliteli. Ekran yanması riski az. Ses sistemi iyi. Yazılım güncellemeleri düzenli.",checklist:["Ekran yanması var mı test et","Tüm giriş portlarını test et","Ses sistemini test et","Uzaktan kumandayı test et","Yazılım sürümünü kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:37,name:"Sony Bravia XR 55\"",model:"Sony",category:"ev-aleti",emoji:"📺",riskScore:3,riskLevel:"safe",chronicIssues:"Sony Bravia kaliteli TV. Ekran yanması riski az. Ses sistemi mükemmel. Yazılım güncellemeleri iyi.",checklist:["Ekran yanması var mı test et","Tüm giriş portlarını test et","Ses sistemini test et","Uzaktan kumandayı test et","Yazılım sürümünü kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:38,name:"Apple Watch Series 9",model:"Apple",category:"ev-aleti",emoji:"⌚",riskScore:2,riskLevel:"safe",chronicIssues:"Series 9 güvenilir akıllı saat. Batarya ömrü 18 saat kadar. Ekran kalitesi harika. Sensörler güvenilir.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Sensörleri test et","Ses sistemini test et","Titreşim motorunu test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:39,name:"Samsung Galaxy Watch 6",model:"Samsung",category:"ev-aleti",emoji:"⌚",riskScore:3,riskLevel:"safe",chronicIssues:"Galaxy Watch 6 güvenilir. Batarya ömrü 2-3 gün. Ekran kalitesi iyi. Yazılım güncellemeleri düzenli.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Sensörleri test et","Ses sistemini test et","Titreşim motorunu test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:40,name:"Nespresso Vertuo",model:"Nespresso",category:"ev-aleti",emoji:"☕",riskScore:3,riskLevel:"safe",chronicIssues:"Kahve makinesi güvenilir. Pompa sorunları nadir. Isıtma elemanı iyi. Kapsül uyumluluğu kontrol et.",checklist:["Pompa basıncını test et","Isıtma süresini kontrol et","Kapsül uyumluluğunu test et","Ses seviyesini kontrol et","Temizlik fonksiyonunu test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:41,name:"Philips Hue Smart Lights",model:"Philips",category:"ev-aleti",emoji:"💡",riskScore:2,riskLevel:"safe",chronicIssues:"Akıllı ışıklar güvenilir. Bağlantı sorunları nadir. Renk kalitesi harika. Yazılım güncellemeleri düzenli.",checklist:["Bağlantıyı test et","Renk kalitesini kontrol et","Parlaklık seviyelerini test et","Ses kontrolünü test et","Uygulamayı test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:42,name:"Amazon Echo Dot 5",model:"Amazon",category:"ev-aleti",emoji:"🔊",riskScore:2,riskLevel:"safe",chronicIssues:"Echo Dot güvenilir akıllı hoparlör. Ses kalitesi iyi. Mikrofon hassas. Yazılım güncellemeleri otomatik.",checklist:["Ses kalitesini test et","Mikrofonu test et","Bağlantıyı test et","Komut tanımasını test et","Müzik akışını test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:43,name:"Sonos Arc",model:"Sonos",category:"ev-aleti",emoji:"🔊",riskScore:2,riskLevel:"safe",chronicIssues:"Sonos Arc premium hoparlör. Ses kalitesi mükemmel. Bağlantı güvenilir. Yazılım güncellemeleri iyi.",checklist:["Ses kalitesini test et","Bağlantıyı test et","HDMI portunu test et","Yazılım sürümünü kontrol et","Ağ bağlantısını test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:44,name:"GoPro Hero 12",model:"GoPro",category:"ev-aleti",emoji:"📹",riskScore:3,riskLevel:"safe",chronicIssues:"GoPro güvenilir aksiyon kamerası. Batarya ömrü 2-3 saat. Video kalitesi harika. Suya dayanıklılık iyi.",checklist:["Batarya sağlığını kontrol et","Video kalitesini test et","Sensörleri test et","Ses sistemini test et","Suya dayanıklılığı kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:45,name:"DJI Mini 3 Pro",model:"DJI",category:"ev-aleti",emoji:"🚁",riskScore:4,riskLevel:"safe",chronicIssues:"DJI drone güvenilir. Batarya kapasitesi kontrol et. Kamera kalitesi harika. Uçuş süresi 30 dakika kadar.",checklist:["Batarya sağlığını kontrol et","Kamera kalitesini test et","Motorları test et","Sensörleri test et","Uçuş süresi kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:46,name:"Kindle Paperwhite",model:"Amazon",category:"ev-aleti",emoji:"📖",riskScore:2,riskLevel:"safe",chronicIssues:"Kindle güvenilir e-reader. Batarya ömrü 10 hafta kadar. Ekran kalitesi iyi. Yazı tipi seçenekleri geniş.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Dokunmatik ekranı test et","Kitap indirmeyi test et","Yazılım sürümünü kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:47,name:"iPad Pro 12.9 M2",model:"Apple",category:"ev-aleti",emoji:"📱",riskScore:2,riskLevel:"safe",chronicIssues:"iPad Pro güçlü ve güvenilir. Batarya ömrü 10 saat kadar. Ekran kalitesi mükemmel. Performans harika.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Apple Pencil uyumluluğunu test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:48,name:"Samsung Galaxy Tab S9 Ultra",model:"Samsung",category:"ev-aleti",emoji:"📱",riskScore:3,riskLevel:"safe",chronicIssues:"Galaxy Tab güvenilir tablet. Batarya ömrü 8-10 saat. Ekran kalitesi harika. Performans yüksek.",checklist:["Batarya sağlığını kontrol et","Ekran yanması var mı test et","Kamera kalitesini test et","Ses sistemini test et","Stylus uyumluluğunu test et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:49,name:"Sony WH-1000XM5",model:"Sony",category:"ev-aleti",emoji:"🎧",riskScore:2,riskLevel:"safe",chronicIssues:"Sony kulaklık harika ses kalitesi. Gürültü iptal mükemmel. Batarya ömrü 30 saat. Konfor iyi.",checklist:["Batarya sağlığını kontrol et","Ses kalitesini test et","Gürültü iptalini test et","Bağlantıyı test et","Konforunu kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]},
-            {id:50,name:"Apple AirPods Pro",model:"Apple",category:"ev-aleti",emoji:"🎧",riskScore:2,riskLevel:"safe",chronicIssues:"AirPods Pro güvenilir kulaklık. Ses kalitesi harika. Gürültü iptal iyi. Batarya ömrü 6 saat.",checklist:["Batarya sağlığını kontrol et","Ses kalitesini test et","Gürültü iptalini test et","Bağlantıyı test et","Konforunu kontrol et","Orijinal kutusu var mı kontrol et","Garantisi kalmış mı sor"]}
+            {id:1,name:'iPhone 15 Pro Max',brand:'Apple',category:'telefon',emoji:'📱',riskScore:2,analysis:'En yeni iPhone modeli. Pil sağlığı mükemmel. Ekran sorunları çok nadir. Kamera sistemi güvenilir.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:2,name:'iPhone 15',brand:'Apple',category:'telefon',emoji:'📱',riskScore:2,analysis:'Güvenilir iPhone modeli. Standart ekran kalitesi iyi. Pil ömrü uzun. Kamera sistemi başarılı.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:3,name:'iPhone 14 Pro',brand:'Apple',category:'telefon',emoji:'📱',riskScore:3,analysis:'Önceki nesil Pro modeli. Ekran kalitesi mükemmel. Dinamik Ada özelliği çalışıyor. Pil yaşlanması kontrol et.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:4,name:'iPhone 14',brand:'Apple',category:'telefon',emoji:'📱',riskScore:3,analysis:'Standart iPhone 14. Ekran kalitesi iyi. Kamera sistemi güvenilir. Pil ömrü orta düzey.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:5,name:'iPhone 13 Pro Max',brand:'Apple',category:'telefon',emoji:'📱',riskScore:3,analysis:'Eski Pro modeli. Ekran kalitesi mükemmel. ProMotion 120Hz çalışıyor. Pil yaşlanması normal.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:6,name:'iPhone 13',brand:'Apple',category:'telefon',emoji:'📱',riskScore:3,analysis:'Standart iPhone 13. Ekran kalitesi iyi. Kamera sistemi başarılı. Pil ömrü orta.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:7,name:'iPhone 12 Pro',brand:'Apple',category:'telefon',emoji:'📱',riskScore:4,analysis:'Eski Pro modeli. Ekran kalitesi iyi. Pil yaşlanması başladı. LiDAR sensörü çalışıyor.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:8,name:'iPhone 12',brand:'Apple',category:'telefon',emoji:'📱',riskScore:4,analysis:'Eski standart model. Ekran kalitesi orta. Pil yaşlanması başladı. MagSafe çalışıyor.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:9,name:'iPhone 11 Pro Max',brand:'Apple',category:'telefon',emoji:'📱',riskScore:5,analysis:'Çok eski Pro modeli. Ekran kalitesi iyi ama yaşlı. Pil yaşlanması belirgin. Triple kamera çalışıyor.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:10,name:'iPhone 11',brand:'Apple',category:'telefon',emoji:'📱',riskScore:5,analysis:'Çok eski standart model. Ekran kalitesi orta. Pil yaşlanması belirgin. Dual kamera çalışıyor.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:11,name:'Samsung Galaxy S24 Ultra',brand:'Samsung',category:'telefon',emoji:'📱',riskScore:2,analysis:'En yeni Samsung Ultra. Ekran kalitesi mükemmel. Pil sağlığı iyi. AI kamera özellikleri çalışıyor.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:12,name:'Samsung Galaxy S24',brand:'Samsung',category:'telefon',emoji:'📱',riskScore:2,analysis:'Yeni standart Galaxy. Ekran kalitesi iyi. Pil ömrü uzun. AI özellikleri çalışıyor.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:13,name:'Samsung Galaxy S23 Ultra',brand:'Samsung',category:'telefon',emoji:'📱',riskScore:3,analysis:'Önceki Ultra modeli. Ekran kalitesi mükemmel. Pil yaşlanması minimal. Stylus çalışıyor.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:14,name:'Samsung Galaxy S23',brand:'Samsung',category:'telefon',emoji:'📱',riskScore:3,analysis:'Standart Galaxy S23. Ekran kalitesi iyi. Kamera sistemi başarılı. Pil ömrü orta.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:15,name:'Samsung Galaxy S22 Ultra',brand:'Samsung',category:'telefon',emoji:'📱',riskScore:4,analysis:'Eski Ultra modeli. Ekran kalitesi iyi. Pil yaşlanması başladı. Stylus çalışıyor.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:16,name:'Samsung Galaxy S22',brand:'Samsung',category:'telefon',emoji:'📱',riskScore:4,analysis:'Eski standart model. Ekran kalitesi orta. Pil yaşlanması başladı. Kamera çalışıyor.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:17,name:'Samsung Galaxy S21 Ultra',brand:'Samsung',category:'telefon',emoji:'📱',riskScore:5,analysis:'Çok eski Ultra modeli. Ekran kalitesi iyi ama yaşlı. Pil yaşlanması belirgin. Stylus çalışıyor.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:18,name:'Samsung Galaxy A54',brand:'Samsung',category:'telefon',emoji:'📱',riskScore:3,analysis:'Orta seviye Galaxy. Ekran kalitesi orta. Pil ömrü iyi. Kamera sistemi başarılı.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:19,name:'Samsung Galaxy A34',brand:'Samsung',category:'telefon',emoji:'📱',riskScore:4,analysis:'Eski orta seviye model. Ekran kalitesi orta. Pil yaşlanması başladı. Kamera orta düzey.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:20,name:'Google Pixel 8 Pro',brand:'Google',category:'telefon',emoji:'📱',riskScore:2,analysis:'En yeni Pixel Pro. Kamera yazılımı mükemmel. Ekran kalitesi iyi. Pil sağlığı iyi.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:21,name:'Google Pixel 8',brand:'Google',category:'telefon',emoji:'📱',riskScore:2,analysis:'Yeni standart Pixel. Kamera yazılımı iyi. Ekran kalitesi orta. Pil ömrü uzun.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:22,name:'Google Pixel 7 Pro',brand:'Google',category:'telefon',emoji:'📱',riskScore:3,analysis:'Önceki Pixel Pro. Kamera yazılımı iyi. Ekran kalitesi iyi. Pil yaşlanması minimal.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:23,name:'OnePlus 12',brand:'OnePlus',category:'telefon',emoji:'📱',riskScore:3,analysis:'Yeni OnePlus modeli. Ekran kalitesi iyi. Hızlı şarj çalışıyor. Pil sağlığı iyi.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:24,name:'OnePlus 11',brand:'OnePlus',category:'telefon',emoji:'📱',riskScore:4,analysis:'Eski OnePlus modeli. Ekran kalitesi orta. Hızlı şarj çalışıyor. Pil yaşlanması başladı.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:25,name:'Xiaomi 14',brand:'Xiaomi',category:'telefon',emoji:'📱',riskScore:4,analysis:'Yeni Xiaomi modeli. Ekran kalitesi iyi. Kamera sistemi başarılı. Pil ömrü orta.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Kamera kalitesini kontrol et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:26,name:'MacBook Pro 16 M3 Max',brand:'Apple',category:'laptop',emoji:'💻',riskScore:2,analysis:'En yeni MacBook Pro. M3 Max çipi mükemmel. Ekran kalitesi iyi. Pil ömrü uzun.',checklist:['Ekranı test et','Klavyeyi test et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:27,name:'MacBook Pro 14 M3',brand:'Apple',category:'laptop',emoji:'💻',riskScore:2,analysis:'MacBook Pro 14 inç M3. Ekran kalitesi iyi. Pil ömrü uzun. Performans iyi.',checklist:['Ekranı test et','Klavyeyi test et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:28,name:'MacBook Air M3',brand:'Apple',category:'laptop',emoji:'💻',riskScore:2,analysis:'MacBook Air M3. Ekran kalitesi iyi. Pil ömrü uzun. Hafif ve taşınabilir.',checklist:['Ekranı test et','Klavyeyi test et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:29,name:'MacBook Air M2',brand:'Apple',category:'laptop',emoji:'💻',riskScore:3,analysis:'MacBook Air M2. Ekran kalitesi iyi. Pil yaşlanması minimal. Performans iyi.',checklist:['Ekranı test et','Klavyeyi test et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:30,name:'MacBook Air M1',brand:'Apple',category:'laptop',emoji:'💻',riskScore:3,analysis:'MacBook Air M1. Ekran kalitesi iyi. Pil yaşlanması minimal. Performans iyi.',checklist:['Ekranı test et','Klavyeyi test et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:31,name:'ASUS ROG Zephyrus G16',brand:'ASUS',category:'laptop',emoji:'💻',riskScore:4,analysis:'Gaming laptop. Ekran kalitesi mükemmel. Soğutma sistemi çalışıyor. Pil ömrü kısa.',checklist:['Ekranı test et','Soğutma sistemini test et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:32,name:'Dell XPS 15',brand:'Dell',category:'laptop',emoji:'💻',riskScore:3,analysis:'Premium ultrabook. Ekran kalitesi mükemmel. Pil ömrü iyi. Performans iyi.',checklist:['Ekranı test et','Klavyeyi test et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:33,name:'Dell XPS 13',brand:'Dell',category:'laptop',emoji:'💻',riskScore:3,analysis:'Kompakt ultrabook. Ekran kalitesi mükemmel. Pil ömrü uzun. Hafif.',checklist:['Ekranı test et','Klavyeyi test et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:34,name:'Lenovo ThinkPad X1 Carbon',brand:'Lenovo',category:'laptop',emoji:'💻',riskScore:3,analysis:'İş laptopı. Ekran kalitesi iyi. Pil ömrü uzun. Dayanıklı.',checklist:['Ekranı test et','Klavyeyi test et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:35,name:'HP Pavilion 15',brand:'HP',category:'laptop',emoji:'💻',riskScore:4,analysis:'Günlük kullanım laptop. Ekran kalitesi orta. Pil ömrü orta. Performans orta.',checklist:['Ekranı test et','Klavyeyi test et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:36,name:'Acer Swift 3',brand:'Acer',category:'laptop',emoji:'💻',riskScore:3,analysis:'Günlük kullanım laptop. Ekran kalitesi iyi. Pil ömrü uzun. Hafif.',checklist:['Ekranı test et','Klavyeyi test et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:37,name:'Razer Blade 15',brand:'Razer',category:'laptop',emoji:'💻',riskScore:4,analysis:'Premium gaming laptop. Ekran kalitesi mükemmel. Soğutma sistemi çalışıyor. Pil ömrü kısa.',checklist:['Ekranı test et','Soğutma sistemini test et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:38,name:'Framework Laptop',brand:'Framework',category:'laptop',emoji:'💻',riskScore:3,analysis:'Tamir edilebilir laptop. Ekran kalitesi iyi. Modüler tasarım. Pil ömrü uzun.',checklist:['Ekranı test et','Modüler parçaları kontrol et','Pil sağlığını kontrol et','Performansı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:39,name:'PlayStation 5',brand:'Sony',category:'konsol',emoji:'🎮',riskScore:3,analysis:'PS5 güvenilir konsol. Disk drive sorunları nadir. Batarya kontrolörü iyi. Isınma sorunları çok nadir.',checklist:['Disk drive\'ı test et','Kontrolörleri test et','HDMI portunu test et','USB portlarını test et','Ses sistemini test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:40,name:'PlayStation 4 Pro',brand:'Sony',category:'konsol',emoji:'🎮',riskScore:4,analysis:'PS4 Pro. Disk drive sorunları nadir. Kontrolörler iyi. Isınma sorunları nadir.',checklist:['Disk drive\'ı test et','Kontrolörleri test et','HDMI portunu test et','USB portlarını test et','Ses sistemini test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:41,name:'Xbox Series X',brand:'Microsoft',category:'konsol',emoji:'🎮',riskScore:2,analysis:'Xbox Series X güvenilir. Soğutma sistemi mükemmel. Kontrolörler iyi. Disk drive iyi.',checklist:['Disk drive\'ı test et','Kontrolörleri test et','HDMI portunu test et','USB portlarını test et','Ses sistemini test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:42,name:'Xbox Series S',brand:'Microsoft',category:'konsol',emoji:'🎮',riskScore:2,analysis:'Xbox Series S güvenilir. Kompakt tasarım. Kontrolörler iyi. Soğutma iyi.',checklist:['Disk drive\'ı test et','Kontrolörleri test et','HDMI portunu test et','USB portlarını test et','Ses sistemini test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:43,name:'Nintendo Switch OLED',brand:'Nintendo',category:'konsol',emoji:'🎮',riskScore:3,analysis:'Switch OLED. Ekran kalitesi mükemmel. Joy-Con sorunları nadir. Pil ömrü iyi.',checklist:['Ekranı test et','Joy-Con\'ları test et','Dock\'ı test et','Şarj sistemini test et','Ses sistemini test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:44,name:'Nintendo Switch',brand:'Nintendo',category:'konsol',emoji:'🎮',riskScore:5,analysis:'Switch standart. Ekran kalitesi orta. Joy-Con sorunları yaygın. Pil ömrü kısa.',checklist:['Ekranı test et','Joy-Con\'ları test et','Dock\'ı test et','Şarj sistemini test et','Ses sistemini test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:45,name:'Steam Deck',brand:'Valve',category:'konsol',emoji:'🎮',riskScore:3,analysis:'Steam Deck. Ekran kalitesi iyi. Kontroller iyi. Pil ömrü orta.',checklist:['Ekranı test et','Kontrolörleri test et','Şarj sistemini test et','Performansı test et','Ses sistemini test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:46,name:'Dyson V15 Detect',brand:'Dyson',category:'ev-aleti',emoji:'🧹',riskScore:6,analysis:'Dyson V15 Detect. Pil yaşlanması başladı. Motor çalışıyor. Filtre temiz.',checklist:['Motoru test et','Pil sağlığını kontrol et','Filtreyi kontrol et','Emme gücünü test et','Aksesuar tamamlığını kontrol et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:47,name:'Dyson V12 Detect',brand:'Dyson',category:'ev-aleti',emoji:'🧹',riskScore:5,analysis:'Dyson V12 Detect. Pil yaşlanması başladı. Motor çalışıyor. Filtre temiz.',checklist:['Motoru test et','Pil sağlığını kontrol et','Filtreyi kontrol et','Emme gücünü test et','Aksesuar tamamlığını kontrol et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:48,name:'Xiaomi Robot Vacuum',brand:'Xiaomi',category:'ev-aleti',emoji:'🤖',riskScore:4,analysis:'Xiaomi Robot Vacuum. Pil sağlığı iyi. Motor çalışıyor. Sensörler çalışıyor.',checklist:['Motoru test et','Pil sağlığını kontrol et','Sensörleri test et','Emme gücünü test et','Uygulamayı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:49,name:'iRobot Roomba j7+',brand:'iRobot',category:'ev-aleti',emoji:'🤖',riskScore:3,analysis:'iRobot Roomba j7+. Pil sağlığı iyi. Motor çalışıyor. Sensörler çalışıyor.',checklist:['Motoru test et','Pil sağlığını kontrol et','Sensörleri test et','Emme gücünü test et','Uygulamayı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:50,name:'Sony WH-1000XM5',brand:'Sony',category:'ev-aleti',emoji:'🎧',riskScore:2,analysis:'Sony WH-1000XM5. Kulaklık kalitesi mükemmel. Gürültü iptal çalışıyor. Pil ömrü uzun.',checklist:['Kulaklık kalitesini test et','Gürültü iptal özelliğini test et','Pil sağlığını kontrol et','Bağlantıyı test et','Ses kalitesini test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:51,name:'Apple Watch Series 9',brand:'Apple',category:'ev-aleti',emoji:'⌚',riskScore:2,analysis:'Apple Watch Series 9. Pil sağlığı iyi. Ekran kalitesi iyi. Sensörler çalışıyor.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Sensörleri test et','Hoparlörleri test et','Mikrofonu test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:52,name:'iPad Pro 12.9 M2',brand:'Apple',category:'ev-aleti',emoji:'📱',riskScore:2,analysis:'iPad Pro 12.9 M2. Ekran kalitesi mükemmel. Pil sağlığı iyi. Performans iyi.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Performansı test et','Kamerayı test et','Hoparlörleri test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:53,name:'LG OLED TV 55 inç',brand:'LG',category:'ev-aleti',emoji:'📺',riskScore:5,analysis:'LG OLED TV 55. Ekran kalitesi mükemmel. Pixel burn riski var. Pil yaşlanması.',checklist:['Ekranı test et','Renkleri kontrol et','Ses sistemini test et','Bağlantıları test et','Uzaktan kumandayı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:54,name:'Samsung QLED TV 65 inç',brand:'Samsung',category:'ev-aleti',emoji:'📺',riskScore:4,analysis:'Samsung QLED TV 65. Ekran kalitesi iyi. Renk doğruluğu iyi. Pil yaşlanması.',checklist:['Ekranı test et','Renkleri kontrol et','Ses sistemini test et','Bağlantıları test et','Uzaktan kumandayı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:55,name:'Nespresso Vertuo',brand:'Nespresso',category:'ev-aleti',emoji:'☕',riskScore:3,analysis:'Nespresso Vertuo. Motor çalışıyor. Isıtıcı çalışıyor. Pompası çalışıyor.',checklist:['Motoru test et','Isıtıcıyı test et','Pompayı test et','Çıkış kalitesini kontrol et','Temizliğini kontrol et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:56,name:'Amazon Echo Dot 5',brand:'Amazon',category:'ev-aleti',emoji:'🔊',riskScore:2,analysis:'Amazon Echo Dot 5. Mikrofon çalışıyor. Hoparlör çalışıyor. Bağlantı iyi.',checklist:['Mikrofonu test et','Hoparlörü test et','Bağlantıyı test et','Uygulamayı test et','Ses kalitesini test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:57,name:'Sonos Arc',brand:'Sonos',category:'ev-aleti',emoji:'🔊',riskScore:2,analysis:'Sonos Arc. Hoparlörler çalışıyor. Ses kalitesi mükemmel. Bağlantı iyi.',checklist:['Hoparlörleri test et','Bağlantıyı test et','Uygulamayı test et','Ses kalitesini test et','Subwoofer bağlantısını test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:58,name:'GoPro Hero 12',brand:'GoPro',category:'ev-aleti',emoji:'📹',riskScore:3,analysis:'GoPro Hero 12. Kamera çalışıyor. Video kalitesi iyi. Pil sağlığı iyi.',checklist:['Kamerayı test et','Video kalitesini kontrol et','Pil sağlığını kontrol et','Ses sistemini test et','Ekranı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:59,name:'DJI Mini 3 Pro',brand:'DJI',category:'ev-aleti',emoji:'🚁',riskScore:4,analysis:'DJI Mini 3 Pro. Drone çalışıyor. Kamera çalışıyor. Pil ömrü orta.',checklist:['Dronu test et','Kamerayı test et','Pil sağlığını kontrol et','Pervaneleri kontrol et','Kumandayı test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']},
+            {id:60,name:'Kindle Paperwhite',brand:'Amazon',category:'ev-aleti',emoji:'📖',riskScore:2,analysis:'Kindle Paperwhite. Ekran kalitesi iyi. Pil ömrü uzun. Yazı tipi iyi.',checklist:['Ekranı test et','Pil sağlığını kontrol et','Yazı tipini test et','Bağlantıyı test et','Kitap indirmesini test et','Orijinal kutusu var mı kontrol et','Garantisi kalmış mı sor']}
         ];
 
-        let filteredProducts = [...products];
-        let currentFilter = "all";
+        let currentFilter = 'all';
+        let currentSearchTerm = '';
 
-        // Initialize
-        function init() {
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const productsGrid = document.getElementById('productsGrid');
+        const productCount = document.getElementById('productCount');
+        const emptyState = document.getElementById('emptyState');
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        const productModal = document.getElementById('productModal');
+
+        searchInput.addEventListener('input', (e) => {
+            currentSearchTerm = e.target.value.toLowerCase();
             renderProducts();
-            setupEventListeners();
-            setupScrollToTop();
-        }
+        });
 
-        // Render Products
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-filter');
+                renderProducts();
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
         function renderProducts() {
-            const grid = document.getElementById("productsGrid");
-            const emptyState = document.getElementById("emptyState");
-            const resultCount = document.getElementById("resultCount");
+            let filtered = products;
 
-            if (filteredProducts.length === 0) {
-                grid.style.display = "none";
-                emptyState.style.display = "block";
-                resultCount.textContent = "0";
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(p => p.category === currentFilter);
+            }
+
+            if (currentSearchTerm) {
+                filtered = filtered.filter(p => 
+                    p.name.toLowerCase().includes(currentSearchTerm) ||
+                    p.brand.toLowerCase().includes(currentSearchTerm)
+                );
+            }
+
+            productCount.textContent = `${filtered.length} ürün listeleniyor`;
+
+            if (filtered.length === 0) {
+                productsGrid.style.display = 'none';
+                emptyState.style.display = 'block';
                 return;
             }
 
-            grid.style.display = "grid";
-            emptyState.style.display = "none";
-            resultCount.textContent = filteredProducts.length;
+            productsGrid.style.display = 'grid';
+            emptyState.style.display = 'none';
 
-            grid.innerHTML = filteredProducts.map(product => `
+            productsGrid.innerHTML = filtered.map(product => `
                 <div class="product-card" onclick="openModal(${product.id})">
                     <div class="product-image">${product.emoji}</div>
-                    <div class="product-content">
-                        <div class="product-badges">
-                            <span class="badge badge-category">${product.category.toUpperCase()}</span>
-                            <span class="badge badge-risk ${getRiskClass(product.riskScore)}">
-                                ${product.riskScore}/10 ${getRiskLabel(product.riskScore)}
-                            </span>
+                    <div class="product-info">
+                        <div class="product-header">
+                            <span class="category-badge">${product.category.toUpperCase()}</span>
+                            <span class="risk-badge ${getRiskClass(product.riskScore)}">${product.riskScore}/10 ${getRiskIcon(product.riskScore)}</span>
                         </div>
                         <div class="product-name">${product.name}</div>
-                        <div class="product-model">${product.model}</div>
-                        <div class="risk-score">
-                            <span class="risk-score-label">Risk Puanı:</span>
-                            <span class="risk-score-value ${getRiskClass(product.riskScore)}">
-                                ${product.riskScore}/10
-                            </span>
-                        </div>
+                        <div class="product-brand">${product.brand}</div>
+                        <div class="product-score">Risk Puanı: ${product.riskScore}/10</div>
                     </div>
                 </div>
-            `).join("");
+            `).join('');
         }
 
-        // Get Risk Class
         function getRiskClass(score) {
-            if (score <= 3) return "";
-            if (score <= 6) return "warning";
-            return "danger";
+            if (score <= 3) return 'risk-safe';
+            if (score <= 6) return 'risk-warning';
+            return 'risk-danger';
         }
 
-        // Get Risk Label
-        function getRiskLabel(score) {
-            if (score <= 3) return "✓ Güvenli";
-            if (score <= 6) return "⚠ Dikkat";
-            return "✗ Yüksek Risk";
+        function getRiskIcon(score) {
+            if (score <= 3) return '✓ Güvenli';
+            if (score <= 6) return '⚠ Dikkat';
+            return '✗ Yüksek Risk';
         }
 
-        // Open Modal
         function openModal(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
 
-            document.getElementById("modalProductName").textContent = product.name;
-            document.getElementById("modalProductModel").textContent = product.model;
-            document.getElementById("modalRiskScore").innerHTML = `
-                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
-                    <div style="font-size: 2.5rem; font-weight: 700; color: ${getRiskColor(product.riskScore)};">
-                        ${product.riskScore}/10
-                    </div>
-                    <div>
-                        <div style="font-size: 1rem; font-weight: 600; color: var(--text-primary);">
-                            ${getRiskLabel(product.riskScore)}
-                        </div>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary);">
-                            ${getRiskDescription(product.riskScore)}
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.getElementById("modalChronicIssues").textContent = product.chronicIssues;
-            document.getElementById("modalChecklist").innerHTML = product.checklist
-                .map(item => `<li>${item}</li>`)
-                .join("");
-
-            const riskColor = getRiskColor(product.riskScore);
-            document.getElementById("modalRiskInfo").innerHTML = `
-                <div class="risk-info-title" style="color: ${riskColor};">
-                    ${getRiskLabel(product.riskScore)} - Dikkat Edilmesi Gerekenler
-                </div>
-                <div class="risk-info-text">
-                    ${getRiskAdvice(product.riskScore)}
-                </div>
-            `;
-
-            document.getElementById("productModal").classList.add("active");
-        }
-
-        // Close Modal
-        function closeModal() {
-            document.getElementById("productModal").classList.remove("active");
-        }
-
-        // Get Risk Color
-        function getRiskColor(score) {
-            if (score <= 3) return "var(--accent-green)";
-            if (score <= 6) return "var(--accent-orange)";
-            return "var(--accent-red)";
-        }
-
-        // Get Risk Description
-        function getRiskDescription(score) {
-            if (score <= 3) return "Bu ürün satın almak için güvenlidir";
-            if (score <= 6) return "Dikkatli inceleme yapılmalıdır";
-            return "Satın almadan önce uzman görüşü alınız";
-        }
-
-        // Get Risk Advice
-        function getRiskAdvice(score) {
-            if (score <= 3) {
-                return "Bu ürün nispeten güvenli bir seçimdir. Yine de kontrol listesini tamamlayın ve satıcıyı sorgulamaktan çekinmeyin.";
-            }
-            if (score <= 6) {
-                return "Bu ürün bazı potansiyel sorunlar içerebilir. Kontrol listesini dikkatli bir şekilde takip edin ve satıcının açık ve dürüst olduğundan emin olun.";
-            }
-            return "Bu ürün satın almadan önce çok dikkatli olun. Mümkünse bir teknisyen ile birlikte kontrol edin veya satın almaktan vazgeçmeyi düşünün.";
-        }
-
-        // Setup Event Listeners
-        function setupEventListeners() {
-            // Search
-            document.getElementById("searchInput").addEventListener("input", (e) => {
-                const query = e.target.value.toLowerCase();
-                filteredProducts = products.filter(p => {
-                    const matchesSearch = p.name.toLowerCase().includes(query) || 
-                                        p.model.toLowerCase().includes(query);
-                    const matchesFilter = currentFilter === "all" || p.category === currentFilter;
-                    return matchesSearch && matchesFilter;
-                });
-                renderProducts();
-            });
-
-            // Filters
-            document.querySelectorAll(".filter-btn").forEach(btn => {
-                btn.addEventListener("click", () => {
-                    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-                    btn.classList.add("active");
-                    currentFilter = btn.dataset.filter;
-
-                    const searchQuery = document.getElementById("searchInput").value.toLowerCase();
-                    filteredProducts = products.filter(p => {
-                        const matchesSearch = p.name.toLowerCase().includes(searchQuery) || 
-                                            p.model.toLowerCase().includes(searchQuery);
-                        const matchesFilter = currentFilter === "all" || p.category === currentFilter;
-                        return matchesSearch && matchesFilter;
-                    });
-                    renderProducts();
-                });
-            });
-
-            // Modal Close
-            document.getElementById("productModal").addEventListener("click", (e) => {
-                if (e.target.id === "productModal") {
-                    closeModal();
-                }
-            });
-
-            // Keyboard ESC to close modal
-            document.addEventListener("keydown", (e) => {
-                if (e.key === "Escape") {
-                    closeModal();
-                }
-            });
-        }
-
-        // Scroll to Top Setup
-        function setupScrollToTop() {
-            const scrollBtn = document.getElementById("scrollToTopBtn");
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalBrand').textContent = product.brand;
             
-            window.addEventListener("scroll", () => {
-                if (window.pageYOffset > 300) {
-                    scrollBtn.classList.add("show");
-                } else {
-                    scrollBtn.classList.remove("show");
-                }
-            });
+            const riskScoreEl = document.getElementById('modalRiskScore');
+            riskScoreEl.textContent = `${product.riskScore}/10`;
+            riskScoreEl.className = `risk-score ${getRiskClass(product.riskScore).replace('risk-', '')}`;
+
+            const riskStatusEl = document.getElementById('modalRiskStatus');
+            riskStatusEl.textContent = getRiskIcon(product.riskScore);
+            riskStatusEl.className = `risk-status ${getRiskClass(product.riskScore).replace('risk-', '')}`;
+
+            document.getElementById('modalAnalysis').textContent = product.analysis;
+
+            const checklistEl = document.getElementById('modalChecklist');
+            checklistEl.innerHTML = product.checklist.map(item => `<li>${item}</li>`).join('');
+
+            const recEl = document.getElementById('modalRecommendation');
+            const recTextEl = document.getElementById('modalRecommendationText');
+            
+            if (product.riskScore <= 3) {
+                recEl.textContent = '✓ Güvenli - Tavsiyeler';
+                recTextEl.textContent = 'Bu ürün nispeten güvenli bir seçimdir. Yine de kontrol listesini tamamlayın ve satıcıyı sorgulamaktan çekinmeyin.';
+            } else if (product.riskScore <= 6) {
+                recEl.textContent = '⚠ Dikkat - Tavsiyeler';
+                recTextEl.textContent = 'Bu ürünü satın almadan önce tüm kontrol listesini dikkatle tamamlayın. Satıcıdan garanti belgesi isteyiniz.';
+            } else {
+                recEl.textContent = '✗ Yüksek Risk - Tavsiyeler';
+                recTextEl.textContent = 'Bu ürünü satın almadan önce çok dikkatli olun. Teknik uzmanın incelemesini istemeniz önerilir.';
+            }
+
+            productModal.style.display = 'block';
         }
 
-        // Scroll to Top Function
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+        function closeModal() {
+            productModal.style.display = 'none';
         }
 
-        // Start
-        init();
+        window.onclick = (event) => {
+            if (event.target === productModal) {
+                closeModal();
+            }
+        };
+
+        renderProducts();
     </script>
 </body>
 </html>
