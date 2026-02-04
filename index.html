@@ -21,11 +21,18 @@
 
         header {
             background: linear-gradient(135deg, #0f172a 0%, #1a2847 100%);
-            padding: 20px 0;
+            padding: 30px 0;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        header.compact {
+            padding: 12px 0;
+            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(26, 40, 71, 0.95) 100%);
         }
 
         .container {
@@ -42,6 +49,15 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: all 0.4s ease;
+            opacity: 1;
+            max-height: 40px;
+        }
+
+        header.compact .logo {
+            opacity: 0;
+            max-height: 0;
+            margin-bottom: 0;
         }
 
         .logo::before {
@@ -51,6 +67,11 @@
 
         .search-container {
             margin-bottom: 20px;
+            transition: all 0.4s ease;
+        }
+
+        header.compact .search-container {
+            margin-bottom: 0;
         }
 
         #searchInput {
@@ -80,12 +101,23 @@
             flex-wrap: wrap;
             align-items: center;
             margin-bottom: 20px;
+            transition: all 0.4s ease;
+            opacity: 1;
+            max-height: 50px;
+        }
+
+        header.compact .filters {
+            opacity: 0;
+            max-height: 0;
+            margin-bottom: 0;
+            overflow: hidden;
         }
 
         .filters label {
             color: #00ff88;
             font-weight: 600;
             font-size: 14px;
+            white-space: nowrap;
         }
 
         .filters button {
@@ -98,6 +130,7 @@
             font-weight: 600;
             transition: all 0.3s ease;
             font-size: 14px;
+            white-space: nowrap;
         }
 
         .filters button:hover {
@@ -133,6 +166,7 @@
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .product-card:hover {
@@ -220,6 +254,30 @@
             font-size: 14px;
             color: #00ff88;
             font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .compare-btn {
+            background: rgba(0, 255, 136, 0.15);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .compare-btn:hover {
+            background: rgba(0, 255, 136, 0.3);
+            transform: scale(1.05);
+        }
+
+        .compare-btn.selected {
+            background: #00ff88;
+            color: #0f172a;
         }
 
         .modal {
@@ -232,6 +290,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
             animation: fadeIn 0.3s ease;
+            overflow-y: auto;
         }
 
         @keyframes fadeIn {
@@ -250,6 +309,11 @@
             max-height: 80vh;
             overflow-y: auto;
             animation: slideIn 0.3s ease;
+        }
+
+        .compare-modal-content {
+            max-width: 1000px;
+            max-height: 90vh;
         }
 
         @keyframes slideIn {
@@ -372,6 +436,123 @@
             font-size: 16px;
         }
 
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            color: #c0c0c0;
+        }
+
+        .comparison-table th {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            font-weight: 700;
+            border-bottom: 2px solid #00ff88;
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .product-name-col {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .comparison-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1a2847 100%);
+            border-top: 2px solid #00ff88;
+            padding: 15px 20px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 500;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .comparison-bar.show {
+            display: flex;
+        }
+
+        .comparison-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .comparison-bar-right {
+            display: flex;
+            gap: 10px;
+        }
+
+        .comparison-count {
+            color: #00ff88;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .comparison-items {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .comparison-item {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comparison-item-remove {
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .comparison-item-remove:hover {
+            color: #ef4444;
+        }
+
+        .compare-action-btn {
+            background: linear-gradient(135deg, #00ff88 0%, #00ffff 100%);
+            border: none;
+            color: #0f172a;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .compare-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .compare-action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .scroll-to-top {
             position: fixed;
             bottom: 30px;
@@ -400,6 +581,7 @@
 
         .scroll-to-top.show {
             display: flex;
+            bottom: 100px;
         }
 
         .empty-state {
@@ -438,6 +620,10 @@
                 font-size: 20px;
             }
 
+            .scroll-to-top.show {
+                bottom: 80px;
+            }
+
             .filters {
                 gap: 8px;
             }
@@ -446,11 +632,31 @@
                 padding: 8px 15px;
                 font-size: 12px;
             }
+
+            .comparison-bar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 15px;
+            }
+
+            .comparison-bar-left {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .comparison-table {
+                font-size: 12px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header id="mainHeader">
         <div class="container">
             <div class="logo">Alınır Mı?</div>
             <div class="search-container">
@@ -506,6 +712,37 @@
                 <div class="modal-section-title" id="modalRecommendation"></div>
                 <div class="analysis-text" id="modalRecommendationText"></div>
             </div>
+        </div>
+    </div>
+
+    <div id="compareModal" class="modal">
+        <div class="modal-content compare-modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Ürün Karşılaştırması</div>
+                <button class="close-btn" onclick="closeCompareModal()">✕</button>
+            </div>
+
+            <table class="comparison-table" id="comparisonTable">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Özellik</th>
+                        <th style="width: 37.5%;" id="product1Header"></th>
+                        <th style="width: 37.5%;" id="product2Header"></th>
+                    </tr>
+                </thead>
+                <tbody id="comparisonTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="comparisonBar" class="comparison-bar">
+        <div class="comparison-bar-left">
+            <div class="comparison-count" id="comparisonCount">0 Ürün Seçildi</div>
+            <div class="comparison-items" id="comparisonItems"></div>
+        </div>
+        <div class="comparison-bar-right">
+            <button class="compare-action-btn" id="compareBtn" onclick="openCompareModal()" disabled>Karşılaştır</button>
         </div>
     </div>
 
@@ -577,6 +814,7 @@
 
         let currentFilter = 'all';
         let currentSearchTerm = '';
+        let selectedProducts = [];
 
         const searchInput = document.getElementById('searchInput');
         const filterButtons = document.querySelectorAll('.filter-btn');
@@ -585,6 +823,10 @@
         const emptyState = document.getElementById('emptyState');
         const scrollToTopBtn = document.getElementById('scrollToTopBtn');
         const productModal = document.getElementById('productModal');
+        const compareModal = document.getElementById('compareModal');
+        const comparisonBar = document.getElementById('comparisonBar');
+        const compareBtn = document.getElementById('compareBtn');
+        const mainHeader = document.getElementById('mainHeader');
 
         searchInput.addEventListener('input', (e) => {
             currentSearchTerm = e.target.value.toLowerCase();
@@ -605,6 +847,12 @@
                 scrollToTopBtn.classList.add('show');
             } else {
                 scrollToTopBtn.classList.remove('show');
+            }
+
+            if (window.scrollY > 100) {
+                mainHeader.classList.add('compact');
+            } else {
+                mainHeader.classList.remove('compact');
             }
         });
 
@@ -638,7 +886,7 @@
             emptyState.style.display = 'none';
 
             productsGrid.innerHTML = filtered.map(product => `
-                <div class="product-card" onclick="openModal(${product.id})">
+                <div class="product-card">
                     <div class="product-image">${product.emoji}</div>
                     <div class="product-info">
                         <div class="product-header">
@@ -648,6 +896,10 @@
                         <div class="product-name">${product.name}</div>
                         <div class="product-brand">${product.brand}</div>
                         <div class="product-score">Risk Puanı: ${product.riskScore}/10</div>
+                        <button class="compare-btn ${isProductSelected(product.id) ? 'selected' : ''}" onclick="toggleCompare(${product.id}, event)">+ Karşılaştır</button>
+                    </div>
+                    <div style="padding: 15px; cursor: pointer; border-top: 1px solid rgba(0, 255, 136, 0.2);" onclick="openModal(${product.id})">
+                        <span style="color: #00ff88; font-size: 12px; font-weight: 600;">Detayları Gör →</span>
                     </div>
                 </div>
             `).join('');
@@ -663,6 +915,96 @@
             if (score <= 3) return '✓ Güvenli';
             if (score <= 6) return '⚠ Dikkat';
             return '✗ Yüksek Risk';
+        }
+
+        function isProductSelected(productId) {
+            return selectedProducts.some(p => p.id === productId);
+        }
+
+        function toggleCompare(productId, event) {
+            event.stopPropagation();
+            const product = products.find(p => p.id === productId);
+            
+            if (isProductSelected(productId)) {
+                selectedProducts = selectedProducts.filter(p => p.id !== productId);
+            } else {
+                if (selectedProducts.length >= 2) {
+                    selectedProducts.shift();
+                }
+                selectedProducts.push(product);
+            }
+
+            updateComparisonBar();
+            renderProducts();
+        }
+
+        function updateComparisonBar() {
+            if (selectedProducts.length > 0) {
+                comparisonBar.classList.add('show');
+                document.getElementById('comparisonCount').textContent = `${selectedProducts.length} Ürün Seçildi`;
+                
+                const itemsHtml = selectedProducts.map(p => `
+                    <div class="comparison-item">
+                        ${p.name}
+                        <span class="comparison-item-remove" onclick="toggleCompare(${p.id}, event)">✕</span>
+                    </div>
+                `).join('');
+                document.getElementById('comparisonItems').innerHTML = itemsHtml;
+
+                compareBtn.disabled = selectedProducts.length < 2;
+            } else {
+                comparisonBar.classList.remove('show');
+            }
+        }
+
+        function openCompareModal() {
+            if (selectedProducts.length < 2) return;
+
+            const p1 = selectedProducts[0];
+            const p2 = selectedProducts[1];
+
+            document.getElementById('product1Header').textContent = `${p1.emoji} ${p1.name}`;
+            document.getElementById('product2Header').textContent = `${p2.emoji} ${p2.name}`;
+
+            const tableBody = document.getElementById('comparisonTableBody');
+            tableBody.innerHTML = `
+                <tr>
+                    <td>Marka</td>
+                    <td class="product-name-col">${p1.brand}</td>
+                    <td class="product-name-col">${p2.brand}</td>
+                </tr>
+                <tr>
+                    <td>Risk Puanı</td>
+                    <td><span class="risk-badge ${getRiskClass(p1.riskScore)}">${p1.riskScore}/10</span></td>
+                    <td><span class="risk-badge ${getRiskClass(p2.riskScore)}">${p2.riskScore}/10</span></td>
+                </tr>
+                <tr>
+                    <td>Durum</td>
+                    <td style="color: ${p1.riskScore <= 3 ? '#22c55e' : p1.riskScore <= 6 ? '#fb923c' : '#ef4444'}">${getRiskIcon(p1.riskScore)}</td>
+                    <td style="color: ${p2.riskScore <= 3 ? '#22c55e' : p2.riskScore <= 6 ? '#fb923c' : '#ef4444'}">${getRiskIcon(p2.riskScore)}</td>
+                </tr>
+                <tr>
+                    <td>Kronik Sorunlar</td>
+                    <td>${p1.analysis}</td>
+                    <td>${p2.analysis}</td>
+                </tr>
+                <tr>
+                    <td>Kontrol Listesi</td>
+                    <td>${p1.checklist.slice(0, 3).join(', ')}</td>
+                    <td>${p2.checklist.slice(0, 3).join(', ')}</td>
+                </tr>
+                <tr>
+                    <td>Tavsiye</td>
+                    <td>${p1.riskScore <= 3 ? '✓ Güvenli Seçim' : p1.riskScore <= 6 ? '⚠ Dikkatli Kontrol' : '✗ Riskli'}</td>
+                    <td>${p2.riskScore <= 3 ? '✓ Güvenli Seçim' : p2.riskScore <= 6 ? '⚠ Dikkatli Kontrol' : '✗ Riskli'}</td>
+                </tr>
+            `;
+
+            compareModal.style.display = 'block';
+        }
+
+        function closeCompareModal() {
+            compareModal.style.display = 'none';
         }
 
         function openModal(productId) {
@@ -709,6 +1051,9 @@
         window.onclick = (event) => {
             if (event.target === productModal) {
                 closeModal();
+            }
+            if (event.target === compareModal) {
+                closeCompareModal();
             }
         };
 
